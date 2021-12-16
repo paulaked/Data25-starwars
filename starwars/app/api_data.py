@@ -8,11 +8,16 @@ def get_api_url():
     total_records = str(starwars.json()['total_records'])
     starwars = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + total_records)
 
-    url_results_list = []
-
+    url_list = []
     for i in starwars.json()['results']:
-        url_results_list.append(i['url'])
+        url_list.append(i['url'])
 
-    print(url_results_list)
+    return url_list
 
-get_api_url()
+
+def create_json():
+    url_list = get_api_url()
+    # with open()
+    return url_list
+
+print(create_json())

@@ -7,7 +7,7 @@ if __name__ == '__main__':
     pass
 
 
-def get_from_api():
+def get_from_api(): #collects information
     responses = []
     response = requests.get('https://www.swapi.tech/api/starships/').json()
     responses += response['results']
@@ -69,3 +69,7 @@ def references_pilot():
             reference = {'_id': key}
             pilots.append(reference)
         db.starships.update_one({'name': starship['name']}, {'$set': {'pilots': pilots}})
+
+
+for i in db.starships.find({}):
+    print(type(i))

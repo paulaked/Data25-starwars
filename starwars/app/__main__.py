@@ -19,7 +19,18 @@ def get_from_api():
 def collect_starships():
     starships = []
     for i in get_from_api():
-        starships.append(requests.get(i['url']).json()['result'])
+        starships.append(requests.get(i['url']).json()['result']['properties'])
+    return starships
+
+
+def collect_pilots():
+    starships = []
+    for starship in collect_starships():
+        pilots = []
+        for pilot in starship['pilots']:
+            pilots.append(requests.get(pilot).json()['result']['properties']['name'])
+        starship.update({'pilots': pilots})
+        starships.append(starship)
     return starships
 
 

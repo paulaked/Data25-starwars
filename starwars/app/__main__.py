@@ -46,4 +46,5 @@ def store_data():
             json.dump(starship, json_file)
 
 
-store_data()
+client = pymongo.MongoClient()
+db = client['starwars']

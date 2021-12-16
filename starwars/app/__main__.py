@@ -48,3 +48,13 @@ def store_data():
 
 client = pymongo.MongoClient()
 db = client['starwars']
+
+
+def load_data():
+    db['starships'].drop()
+    starships = db['starships']
+    for i in os.listdir('starships'):
+        file_name = os.path.join('starships', i)
+        with open(file_name, 'r') as json_file:
+            starship = json.load(json_file)
+        db.starships.insert_one(starship)

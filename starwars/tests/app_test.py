@@ -19,3 +19,10 @@ def test_load_data():
         x += 1
     assert x == 36
 
+
+def test_reference_pilots():
+        for i in db.starships.find({}):
+            for j in i['pilots']:
+                assert type(j['_id']) == 'bson.objectid.ObjectId'
+
+

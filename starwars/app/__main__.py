@@ -58,3 +58,5 @@ def load_data():
         with open(file_name, 'r') as json_file:
             starship = json.load(json_file)
         db.starships.insert_one(starship)
+
+

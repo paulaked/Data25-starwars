@@ -1,5 +1,6 @@
 from pprint import pprint
 import requests
+import json
 import pymongo
 if __name__ == '__main__':
     pass
@@ -13,5 +14,12 @@ def get_from_api():
         response = requests.get(response['next']).json()
         responses += response['results']
     return responses
+
+
+def collect_starships():
+    starships = []
+    for i in get_from_api():
+        starships.append(requests.get(i['url']).json()['result'])
+    return starships
 
 

@@ -2,6 +2,7 @@ from pprint import pprint
 import requests
 import json
 import pymongo
+import os
 if __name__ == '__main__':
     pass
 
@@ -34,3 +35,15 @@ def collect_pilots():
     return starships
 
 
+def store_data():
+    try:
+        os.mkdir('starships')
+    except FileExistsError:
+        print('starships already exists')
+    for starship in collect_pilots():
+        file_name = os.path.join('starships', str(starship['name']) + '.json')
+        with open(file_name, 'w') as json_file:
+            json.dump(starship, json_file)
+
+
+store_data()

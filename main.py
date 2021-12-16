@@ -6,6 +6,7 @@ from pprint import pprint
 starship_request = requests.get("https://www.swapi.tech/api/starships/")
 
 starships = starship_request.json()
+print(starships)
 
-pprint(starships["pilots"])
+
 

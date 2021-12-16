@@ -1,5 +1,9 @@
-bart_apanasionok
+## bart_apanasionok
+- Contact Email: BApanasionok@spartaglobal.com
+
+
 # Data 25 Star Wars Project
+
 
 ## Instructions
 
@@ -12,6 +16,7 @@ Use these to replace 'pilots' with a list of ObjectIDs from our characters colle
 
 You have until after Christmas.
 
+
 ## Requirements
 
 - Use good coding principles.  That means testing, appropriate comments, good naming conventions and handling errors gracefully.
@@ -20,6 +25,7 @@ You have until after Christmas.
 - Your code should utilise functional programming OR object-oriented programming
 - Use Test Driven Development: write your tests first
 
+
 ## Using this repo
 
 - Branch off from main.
@@ -27,3 +33,10 @@ You have until after Christmas.
 - Make sure you commit and push to the remote repo frequently to keep your work up-to-date.
 - The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
 - Replace this README with an appropriate README for your project (including a link to your job board).
+
+
+## Project Management
+
+- The project was split into subtasks using Trello and the SCRUM agile framework was used to ensure progress was main on a daily basis.
+- Trello board link:
+      https://trello.com/b/BIkRf3MC/starwarsproject

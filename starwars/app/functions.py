@@ -5,13 +5,13 @@ import pymongo
 import os
 
 
-def get_from_api():     # fetches data about the starships from teh API
+def get_from_api():  # fetches data about the starships from teh API
     responses = []
     response = requests.get('https://www.swapi.tech/api/starships/').json()
     responses += response['results']
-    while response['next'] is not None:     # ensures that all data is collected
-        response = requests.get(response['next']).json()    # collects the link to the next page
-        responses += response['results']    # adds information about the starships to the responses list
+    while response['next'] is not None:  # ensures that all data is collected
+        response = requests.get(response['next']).json()  # collects the link to the next page
+        responses += response['results']  # adds information about the starships to the responses list
     return responses
 
 
@@ -71,4 +71,3 @@ def references_pilot():
             pilots.append(reference)
         db.starships.update_one({'name': starship['name']}, {'$set': {'pilots': pilots}})
         # replaces the pilot field with a document containing the pilot's object id for every pilot
-

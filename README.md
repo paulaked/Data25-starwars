@@ -1,5 +1,8 @@
 # Data 25 Star Wars Project
 
+Jira link: https://djew.atlassian.net/jira/core/projects/MPJ/timeline?atlOrigin=eyJpIjoiNDBiZjJhYjIxYTg1NDliNmE1ZTAzM2Q4NTk3MDI5NzUiLCJwIjoiaiJ9
+
+
 ## Instructions
 
 The character data in your MongoDB database has been pulled from https://swapi.tech/.

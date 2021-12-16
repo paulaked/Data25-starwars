@@ -18,6 +18,7 @@ You have until after Christmas.
 - Create a job board in Trello or similar to keep track of your user stories.  Provide a link to that job board in your version of this README.
 - Your code should utilise functional programming OR object-oriented programming
 - Use Test Driven Development: write your tests first
+- Link to trello board: https://trello.com/b/xFthJYnI/starwars-mw
 
 ## Using this repo
 

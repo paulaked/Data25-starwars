@@ -60,3 +60,12 @@ def load_data():
         db.starships.insert_one(starship)
 
 
+def references_pilot():
+    starships = db.starships.find({})
+    for starship in starships:
+        pilots = [{}]
+        for pilot in starship['pilots']:
+            key = db.characters.find_one({'name': pilot})['_id']
+            reference = {'_id': key}
+            pilots.append(reference)
+        db.starships.update_one({'name': starship['name']}, {'$set': {'pilots': pilots}})

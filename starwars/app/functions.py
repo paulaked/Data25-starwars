@@ -19,8 +19,8 @@ def get_from_api(): #collects information
 
 def collect_starships():
     starships = []
-    for i in get_from_api():
-        starships.append(requests.get(i['url']).json()['result']['properties'])
+    for starship in get_from_api():
+        starships.append(requests.get(starship['url']).json()['result']['properties'])
     return starships
 
 
@@ -53,8 +53,8 @@ db = client['starwars']
 def load_data():
     db['starships'].drop()
     starships = db['starships']
-    for i in os.listdir('starships'):
-        file_name = os.path.join('starships', i)
+    for file in os.listdir('starships'):
+        file_name = os.path.join('starships', file)
         with open(file_name, 'r') as json_file:
             starship = json.load(json_file)
         db.starships.insert_one(starship)

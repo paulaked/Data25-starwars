@@ -2,15 +2,19 @@ from app.functions import *
 
 
 def test_get_from_api():
-    assert type(get_from_api()) is list
+    for i in get_from_api():
+        assert type(i['name']) is str
 
 
 def test_collect_starships():
-    assert type(collect_starships()) is list
+    for i in collect_starships():
+        assert type(i['name']) is str
 
 
 def test_collect_pilots():
-    assert type(collect_pilots()) is list
+    for i in collect_pilots():
+        for j in i['pilots']:
+            assert type(i) is str
 
 
 def test_store_data():

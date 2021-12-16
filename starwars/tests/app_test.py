@@ -1,4 +1,4 @@
-from app.__main__ import *
+from app.functions import *
 
 
 def test_get_from_api():

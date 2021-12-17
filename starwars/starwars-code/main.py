@@ -23,7 +23,11 @@ for x in range(0, 4):
         # print(i)
         starships_names.append(i['name'])
         starships_url.append(i['url'])
-# pprint(starships)
-
+# pprint(starships_url)
+pilot_urls = []
 for i in starships_url:
-    pprint(requests.get(i).json())
+    pilot_urls.append(requests.get(i).json())
+# pprint(pilot_urls)
+for i in pilot_urls:
+    pprint(i.get('result').get('properties').get('pilots'))
+

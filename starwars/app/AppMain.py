@@ -13,8 +13,14 @@ def drop_starships():
 
 
 def pull_data():
-    # Get all data from SWAPI.
-    pass
+    # Get starships data from SWAPI.
+    starships = []
+    data = requests.get("https://www.swapi.tech/api/starships").json()
+    starships.append(data["results"])
+    while data["next"]:
+        data = requests.get(data["next"]).json()
+        starships.append(data["results"])
+    return starships
 
 
 def replace_oids():
@@ -32,4 +38,8 @@ def insert_starships():
 drop_starships()
 testing1 = db.starships.find({})
 for i in testing1:
+    print(i)
+
+data2 = pull_data()
+for i in data2:
     print(i)

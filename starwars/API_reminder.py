@@ -5,7 +5,6 @@ from pprint import pprint
 
 starwars_people = requests.get("https://www.swapi.tech/api/people")
 json_people = starwars_people.json()
-#pprint(starwars_people.json())
 
 raw_starships = requests.get("https://www.swapi.tech/api/starships")
 json_starships = raw_starships.json()
@@ -32,8 +31,17 @@ if json_starships["next"] != None:
 
 #print(starships_url)
 
-for i in starships_url:
-    print(i)
+
+# def calling_url(requests):
+#     url_list = []
+#     if json_starships["next"] != None:
+
+
+
+# for i in starships_url:
+#     file = requests.get(i)
+#     print(file.json())
+
 
 
 

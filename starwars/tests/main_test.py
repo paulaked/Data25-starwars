@@ -22,13 +22,24 @@ def test_pull_data():
 
 # ------------------ FUNCTION 3: REPLACE OBJECT IDS ------------------ #
 
+# Test that function returns at least some data.
+def test_replace_oids_exists():
+    data = replace_oids()
+    assert any(data)
+
+
 # Test that pilots have been replaced with ObjectIDs.
-def test_replace_oids():
-    replace_oids()
+def test_replace_oids_success():
+    data = replace_oids()
+    for item in data:
+        if pd.notnull(item["pilots"]) and "ObjectID" not in item["pilots"]:
+            flag = False
+    assert flag
 
 
 # ------------------ FUNCTION 4: INSERT DATA ------------------ #
 
-# Test that starships data has been inserted into the starships collection.
+# Test that some starships data has been inserted into the starships collection.
 def test_insert_starships():
     insert_starships()
+    assert any(db.starships.find({}))

@@ -23,3 +23,4 @@ for url in next_page_url_list:
     for i in data['results']:
 
         pprint(i['url'])
+

@@ -16,4 +16,4 @@ def insert_starships(url_link):
     return initial_list
 
 
-#pp.pprint(type(insert_starships("https://www.swapi.tech/api/starships/")))
+pp.pprint(insert_starships("https://www.swapi.tech/api/starships/"))

@@ -12,7 +12,6 @@ json_starships = raw_starships.json()
 starships_url = []
 for i in json_starships["results"]:
     starships_url.append(i["url"])
-
 if json_starships["next"] != None:
     raw_starships_page2 = requests.get(json_starships["next"])
     json_starships_page2 = raw_starships_page2.json()
@@ -28,15 +27,10 @@ if json_starships["next"] != None:
             json_starships_page4 = raw_starships_page4.json()
             for k in json_starships_page4["results"]:
                 starships_url.append(k["url"])
+            if json_starships_page4["next"] != "null":
+                print("test")
 
 #print(starships_url)
-
-
-# def calling_url(requests):
-#     url_list = []
-#     if json_starships["next"] != None:
-
-
 
 # for i in starships_url:
 #     file = requests.get(i)

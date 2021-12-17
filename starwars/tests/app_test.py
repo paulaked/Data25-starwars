@@ -14,7 +14,7 @@ def test_collect_starships():
 def test_collect_pilots():
     for i in collect_pilots():
         for j in i['pilots']:
-            assert type(i) is str
+            assert type(j) is str
 
 
 def test_store_data():

@@ -10,11 +10,40 @@ json_people = starwars_people.json()
 raw_starships = requests.get("https://www.swapi.tech/api/starships")
 json_starships = raw_starships.json()
 
-# for i in json_starships["results"]:
-#     print(i["url"])
-# pprint(json_starships)
+starships_url = []
+for i in json_starships["results"]:
+    starships_url.append(i["url"])
 
-print(json_starships["next"])
+if json_starships["next"] != None:
+    raw_starships_page2 = requests.get(json_starships["next"])
+    json_starships_page2 = raw_starships_page2.json()
+    for i in json_starships_page2["results"]:
+        starships_url.append(i["url"])
+    if json_starships_page2["next"] != None:
+        raw_starships_page3 = requests.get(json_starships_page2["next"])
+        json_starships_page3 = raw_starships_page3.json()
+        for j in json_starships_page3["results"]:
+            starships_url.append(j["url"])
+        if json_starships_page3["next"] != None:
+            raw_starships_page4 = requests.get(json_starships_page3["next"])
+            json_starships_page4 = raw_starships_page4.json()
+            for k in json_starships_page4["results"]:
+                starships_url.append(k["url"])
+
+#print(starships_url)
+
+for i in starships_url:
+    print(i)
+
+
+
+
+
+
+# for i in json_starships:
+#     if json_starships["next"] != None:
+#         requests.get(i["next"])
+
 
 # for i in json_starships:
 #     if json_starships["next"] != None:

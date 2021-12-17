@@ -63,7 +63,7 @@ def load_data():
 def references_pilot():
     starships = db.starships.find({})
     for starship in starships:
-        pilots = [{}]
+        pilots = []
         for pilot in starship['pilots']:
             key = db.characters.find_one({'name': pilot})['_id']
             # collects the object id for the pilots based on their name

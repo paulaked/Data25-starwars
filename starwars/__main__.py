@@ -57,3 +57,4 @@ for i in pilots_url:
     for k in i:
         pilot_ids.append(((requests.get(k).json()).get("result").get("_id")))
 
+

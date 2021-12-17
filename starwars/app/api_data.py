@@ -17,8 +17,8 @@ def get_api_url():
 
 def create_json():
     url_list = get_api_url()
-    for i in url_list:
-        with open():
+    # for i in url_list:
+    #     with open():
 
 
 print(create_json())

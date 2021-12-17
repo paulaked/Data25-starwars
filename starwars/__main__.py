@@ -45,3 +45,15 @@ starship_properties = []
 for i in urls_starships:
     starship_properties.append(requests.get(i).json())
 
+pilots_url = []
+for i in starship_properties:
+    pilots_url.append(i.get('result').get('properties').get('pilots'))
+
+# print(pilots_url)
+
+# retrieving the objectid's from the pilot urls
+pilot_ids = []
+for i in pilots_url:
+    for k in i:
+        pilot_ids.append(((requests.get(k).json()).get("result").get("_id")))
+

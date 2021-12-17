@@ -34,9 +34,14 @@ urls_starships = []
 # obtaining the urls containing all the properties of each starship
 for i in list1:
     urls_starships.append(i.get('url'))
-for i in list2:
-    urls_starships.append(i.get('url'))
-for i in list3:
-    urls_starships.append(i.get('url'))
-for i in list4:
-    urls_starships.append(i.get('url'))
+# for i in list2:
+#     urls_starships.append(i.get('url'))
+# for i in list3:
+#     urls_starships.append(i.get('url'))
+# for i in list4:
+#     urls_starships.append(i.get('url'))
+# requesting the properties of each url
+starship_properties = []
+for i in urls_starships:
+    starship_properties.append(requests.get(i).json())
+

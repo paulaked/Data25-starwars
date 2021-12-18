@@ -84,11 +84,25 @@ people_url_id = {k: v for k,v in zip(key_list,value_list)}
 
 for url in url_list_ship:
     ship_data = func_page.api_request(url)
+    list_url = []
     for p_url in ship_data["result"]["properties"]["pilots"]:
-        print(len(p_url))
-        if p_url in people_url_id.keys():
-            ship_data["result"]["properties"]["pilots"] = people_url_id[p_url]
+        list_url.append(p_url)
+    for i in list_url:
+        if list_url in people_url_id.keys():
+            ship_data["result"]["properties"]["pilots"] = people_url_id[list_url]
     print(ship_data)
+    #     if p_url in people_url_id.keys():
+    #         ship_data["result"]["properties"]["pilots"] = people_url_id[p_url]
+    # print(ship_data)
+
+
+# for url in url_list_ship:
+#     ship_data = func_page.api_request(url)
+#     for p_url in ship_data["result"]["properties"]["pilots"]:
+#         print(len(p_url))
+#         if p_url in people_url_id.keys():
+#             ship_data["result"]["properties"]["pilots"] = people_url_id[p_url]
+#     print(ship_data)
 
 
 # Pilot id is the url for the person who pilots the ship

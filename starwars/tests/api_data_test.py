@@ -16,5 +16,3 @@ def test_for_url():
 
     assert check_url == check
 
-
-def

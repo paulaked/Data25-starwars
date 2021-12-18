@@ -14,4 +14,3 @@ def get_api_url():
         url_list.append(i['url'])
 
     return url_list
-

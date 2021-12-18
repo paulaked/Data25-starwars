@@ -1,5 +1,7 @@
 import requests
 from create_starship_list import create_starship_list
+from return_pilot_id import return_pilot_id
+
 
 def get_name_insert_id():
     starship_list = create_starship_list()

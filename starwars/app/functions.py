@@ -60,6 +60,13 @@ def load_data():
         db.starships.insert_one(starship)    # loads the data into the starship collection in MongoDB
 
 
+def load_data_directly():
+    db['starships'].drop()
+    starships = db['starships']
+    for starship in collect_pilots():
+        db.starships.insert_one(starship)
+
+
 def references_pilot():
     starships = db.starships.find({})
     for starship in starships:
@@ -71,3 +78,5 @@ def references_pilot():
             pilots.append(reference)
         db.starships.update_one({'name': starship['name']}, {'$set': {'pilots': pilots}})
         # replaces the pilot field with a document containing the pilot's object id for every pilot
+
+

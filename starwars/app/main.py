@@ -1,8 +1,10 @@
 import requests
 from pprint import pprint
 
+
+
 response = requests.get('https://www.swapi.tech/api/starships')
-print(response.status_code)
+#print(response.status_code)
 ship = response.json()
 #pprint(ship)
 my_list = []
@@ -33,7 +35,38 @@ if ship['next'] != None:
 
 
 
-print(len(url_list))
+#print(len(url_list))
+#for i in url_list:
+    #print(i)
+
+for i in url_list:
+    url_content = requests.get(i)
+    url_content = url_content.json()
+    #print(url_content)
+    result = url_content['result']
+    properties = result['properties']
+    pilot_url = properties['pilots']
+    for pilot in pilot_url:
+        pilot_content = requests.get(pilot)
+        print(pilot_content.json())
+
+
+
+
+
+
+
+
+
+
+
+
+
+#print(len(url_list))
+#print(url_list)
+
+
+
 
 
 

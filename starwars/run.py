@@ -76,11 +76,10 @@ for url in pilot_urls_flat:
     pilot_id_list.append(pilot_id)
 
 
-key_list = pilot_urls_flat
-value_list = pilot_id_list
-zip_iterator = zip(key_list, value_list)
-dictionary_of_pilot_ids = dict(zip_iterator)
-pprint(dictionary_of_pilot_ids)
+new_dict = {k: v for k, v in zip(pilot_urls_flat,pilot_id_list)}
+print(new_dict)
+
+
 
 
 # pilot id is the url for the person who pilots the ship

@@ -15,3 +15,8 @@ def test_pymongo_valid_instance():
         assert fail is False
 
 
+#   test to check if starwars database exists
+def test_db_exists():
+    assert 'starwars' in client.list_database_names()
+
+

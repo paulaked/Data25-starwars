@@ -20,3 +20,6 @@ def test_db_exists():
     assert 'starwars' in client.list_database_names()
 
 
+#   test to check if characters collection exists
+def test_collection_exists():
+    assert 'characters' in db.list_collection_names()

@@ -6,7 +6,7 @@ PROJECT_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 The above line of code is very common within various Python projects. The definitions.py file itself needs to be in
 the root folder of your project.
 
-let's break dow th code piece by piece
+let's break down the code piece by piece
 
 PROJECT_ROOT_DIR ->  variable name and can be referred to as a constant due to caps
 

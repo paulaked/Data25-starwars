@@ -15,17 +15,18 @@ def test_all_starships_endpoint():
     assert is_true is True
 
 
-#   test all individual starship urls work
+#   test all records shown and all individual starship urls work
 def test_url():
-    total_records = str(requests.get("https://www.swapi.tech/api/starships/").json()['total_records'])
-    starship = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + total_records)
+    total_records = requests.get("https://www.swapi.tech/api/starships/").json()['total_records']
+    starship = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + str(total_records))
 
     check_url = 0
     check = 0
-    for i in starship.json()['results']:
-        check += 1
-        if i['url'].status_code == 200:
-            check_url += 1
+    if starship.json()['results'][-1] == (total_records - 1):
+        for i in starship.json()['results']:
+            check += 1
+            if i['url'].status_code == 200:
+                check_url += 1
 
     assert check_url == check
 

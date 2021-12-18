@@ -1,11 +1,12 @@
 import requests
 
 
+#   Function gets the total_records from the main starship page
+#   gets the data from new endpoint showing all records in one place
 def get_api_url():
-    # star_wars = requests.get("https://www.swapi.tech/api/starships/")
     # find total number of records in API
     total_records = str(requests.get("https://www.swapi.tech/api/starships/").json()['total_records'])
-    # concantenate total records to show all starships on one page
+    # concatenate total records to show all starships on one page
     starship = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + total_records)
 
     url_list = []

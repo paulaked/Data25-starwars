@@ -14,7 +14,8 @@ def test_all_starships_endpoint():
 
     assert success
 
-#	test starship entries match total_records
+
+#   test starship entries match total_records
 #   test all individual starship urls work
 def test_url():
     total_records = requests.get("https://www.swapi.tech/api/starships/").json()['total_records']
@@ -34,7 +35,7 @@ def test_url():
 #   test for correct data in individual api /starships/<id> endpoint
 #   check if result key, property key and pilots key in starship api and pilots is a list
 def test_individual_starship_endpoint():
-	total_records = requests.get("https://www.swapi.tech/api/starships/").json()['total_records']
+    total_records = requests.get("https://www.swapi.tech/api/starships/").json()['total_records']
     starships = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + str(total_records))
     results = starships.json()['results']
 
@@ -57,7 +58,7 @@ def test_individual_starship_endpoint():
 #   test for correct data in pilot api /people/<id> endpoint
 #   check if pilot name is a string
 def test_type_pilot_name():
-	total_records = requests.get("https://www.swapi.tech/api/starships/").json()['total_records']
+    total_records = requests.get("https://www.swapi.tech/api/starships/").json()['total_records']
     starships = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + str(total_records))
     results = starships.json()['results']
 
@@ -66,15 +67,15 @@ def test_type_pilot_name():
     for result in results:
         starship = requests.get(result['url']).json()
         success = False
-		for pilot in starship['result']['properties']['pilots']
-			if type(requests.get(pilot).json()['result']['properties']['name'] == string:
-				success = True
+        for pilot in starship['result']['properties']['pilots']:
+            if type(requests.get(pilot).json()['result']['properties']['name']) == str:
+                success = True
 
-			if not success:
-				break
+            if not success:
+                break
 
-		if not success:
-			break
+        if not success:
+            break
 
     assert success
 

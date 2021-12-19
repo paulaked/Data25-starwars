@@ -7,13 +7,14 @@ db = client.starwars
 
 #   test to check for valid mongodb connection
 def test_pymongo_valid_instance():
-    fail = False
+    success = False
     try:
         client.server_info()
     except:
-        assert fail is True
+        assert success
     else:
-        assert fail is False
+        success = True
+        assert success
 
 
 #   test to check if starwars database exists

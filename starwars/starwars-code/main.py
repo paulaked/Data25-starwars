@@ -14,8 +14,6 @@ starships4 = starship_request4.json()
 starshipsjsons = [starships1, starships2, starships3, starships4]
 # pprint(starshipsjsons)
 
-
-# Now want it to print each starship individually
 starships_names = []
 starships_url = []
 for x in range(0, 4):
@@ -27,18 +25,18 @@ for x in range(0, 4):
 starships_info = []
 for i in starships_url:
     starships_info.append(requests.get(i).json())
-pprint(starships_info)
+# pprint(starships_info)
 
 pilot_urls = []
 for i in starships_info:
     pilot_urls.append(i.get('result').get('properties').get('pilots'))
-pprint(pilot_urls)
+# pprint(pilot_urls)
 
-# pilot_info = []
-# for lists in pilot_urls:
-#     for elements in lists:
-#         pilot_info.append(requests.get(i).json())
-# pprint(pilot_info)
+pilot_info = []
+for lists in pilot_urls:
+    for elements in lists:
+        pilot_info.append(requests.get(elements).json())
+pprint(pilot_info)
 
 
 

@@ -2,9 +2,15 @@
 
 import requests
 import json
+import pymongo
 from pprint import pprint
 from app import func_page
 from tests import testing
+
+##code to import information to mongodb
+client = pymongo.MongoClient()
+db = client["starwars"]
+db.create_collection("starships")
 
 # Code to access the starship information
 api_address_ship = "https://www.swapi.tech/api/starships"
@@ -84,16 +90,15 @@ people_url_id = {k: v for k,v in zip(key_list,value_list)}
 
 for url in url_list_ship:
     ship_data = func_page.api_request(url)
-    list_url = []
+    people_url_id_list = []
     for p_url in ship_data["result"]["properties"]["pilots"]:
-        list_url.append(p_url)
-    for i in list_url:
-        if list_url in people_url_id.keys():
-            ship_data["result"]["properties"]["pilots"] = people_url_id[list_url]
-    print(ship_data)
-    #     if p_url in people_url_id.keys():
-    #         ship_data["result"]["properties"]["pilots"] = people_url_id[p_url]
-    # print(ship_data)
+        if p_url == []:
+            pass
+        else:
+            people_url_id_list.append(people_url_id[p_url])
+            ship_data["result"]["properties"]["pilots"] = people_url_id_list
+    db.starships.insert_one(ship_data)
+    #pprint(ship_data)
 
 
 # for url in url_list_ship:

@@ -5,7 +5,9 @@ import requests
 from pprint import pprint
 from app import function_list
 
-#
+client = pymongo.MongoClient()
+db = client['starwars']
+db.create_collection('starshipswids')
 api_address = 'https://www.swapi.tech/api/starships'
 
 web_address = api_address
@@ -19,7 +21,7 @@ while True:
     web_address = next_page_url
 
 #print(next_page_url_list)
-list_of_starships = []
+list_of_starships = [] #this is list of starship URLs
 for url in next_page_url_list:
     data = function_list.extract_data(url)
     for i in data['results']:
@@ -29,24 +31,24 @@ for url in next_page_url_list:
 #  ________________________________________________________  #
 
 
-api_address_people = 'https://www.swapi.tech/api/people'  # Inputting address for API to target
-web_address_people = api_address_people
-next_page_url_list_people = [api_address_people]          # Initialising list of URLs
-while True:
-    page_contents_people = function_list.extract_data(web_address_people)           # Extracting data on people
-    next_page_url_people = function_list.get_all_page_urls(page_contents_people)    # Finding out whether on last page
-    if next_page_url_people == None:
-        break
-    next_page_url_list_people.append(next_page_url_people)      # Adding url of next page to a list
-    web_address_people = next_page_url_people                   # Moving on to the next page to check
-#print(next_page_url_list_people)                                # Printing the list
-list_of_people = []
-for url in next_page_url_list_people:
-    data = function_list.extract_data(url)
-    for i in data['results']:
-        list_of_people.append(i['url'])
-#        pprint(i['url'])                                        # Print out the URL associated with each person
-#pprint(list_of_people)
+# api_address_people = 'https://www.swapi.tech/api/people'  # Inputting address for API to target
+# web_address_people = api_address_people
+# next_page_url_list_people = [api_address_people]          # Initialising list of URLs
+# while True:
+#     page_contents_people = function_list.extract_data(web_address_people)           # Extracting data on people
+#     next_page_url_people = function_list.get_all_page_urls(page_contents_people)    # Finding out whether on last page
+#     if next_page_url_people == None:
+#         break
+#     next_page_url_list_people.append(next_page_url_people)      # Adding url of next page to a list
+#     web_address_people = next_page_url_people                   # Moving on to the next page to check
+# #print(next_page_url_list_people)                                # Printing the list
+# list_of_people = []
+# for url in next_page_url_list_people:
+#     data = function_list.extract_data(url)
+#     for i in data['results']:
+#         list_of_people.append(i['url'])
+# #        pprint(i['url'])                                        # Print out the URL associated with each person
+# #pprint(list_of_people)
 
 #  ________________________________________________________  #
 
@@ -77,8 +79,6 @@ for url in pilot_urls_flat:
 
 
 new_dict = {k: v for k, v in zip(pilot_urls_flat,pilot_id_list)}
-print(new_dict)
-
 
 
 
@@ -88,3 +88,23 @@ print(new_dict)
 # Use panda replace to change the information in each starship dictionary to show the pilot IDs instead of URLs.
 #  ________________________________________________________  #
 # extract an id for each pilot URL, then make dictionary where key is URL and value is ID
+
+for url in list_of_starships:
+    ship_info = function_list.extract_data(url)
+    pilot_id_list_again = []
+    for i in ship_info['result']['properties']['pilots']:
+        if i == []:
+            pass
+        else:
+            pilot_id_list_again.append(new_dict[i])
+            ship_info['result']['properties']['pilots'] = pilot_id_list_again
+    db.starshipswids.insert_one(ship_info)
+
+
+#drop database in compass DB of starships
+
+
+
+
+# db.create_collection('xmas_starships')
+# db.starships.insert_one(shipdatajson)

@@ -6,16 +6,16 @@ import requests
 #   check if results key, total_records key and url key are in api and results is a list
 def test_all_starships_endpoint():
     dict_key = requests.get("https://www.swapi.tech/api/starships/").json()
-    is_true = False
-    if 'results' in dict_key and type(dict_key['results']) == list and 'total_records' in dict_key:
+    success = False
+    if 'results' in dict_key and type(dict_key['results']) is list and 'total_records' in dict_key:
         for result in dict_key['results']:
             if 'url' in result:
-                is_true = True
+                success = True
 
-    assert is_true is True
+    assert success
 
-
-#   test all records shown and all individual starship urls work
+#	test starship entries match total_records
+#   test all individual starship urls work
 def test_url():
     total_records = requests.get("https://www.swapi.tech/api/starships/").json()['total_records']
     starship = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + str(total_records))
@@ -34,22 +34,49 @@ def test_url():
 #   test for correct data in individual api /starships/<id> endpoint
 #   check if result key, property key and pilots key in starship api and pilots is a list
 def test_individual_starship_endpoint():
-    results = requests.get("https://www.swapi.tech/api/starships/").json()['results']
+	total_records = requests.get("https://www.swapi.tech/api/starships/").json()['total_records']
+    starships = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + str(total_records))
+    results = starships.json()['results']
 
     #   if unassigned python thinks it might be referenced before assignment
-    is_true = False
+    success = False
     for result in results:
         dict_key = requests.get(result['url']).json()
-        is_true = False
+        success = False
         if 'result' in dict_key and 'properties' in dict_key['result'] and \
            'pilots' in dict_key['result']['properties'] and \
-           type(dict_key['result']['properties']['pilots']) == list:
-            is_true = True
+           type(dict_key['result']['properties']['pilots']) is list:
+            success = True
 
-        if is_true is False:
+        if not success:
             break
 
-    assert is_true is True
+    assert success
+
+
+#   test for correct data in pilot api /people/<id> endpoint
+#   check if pilot name is a string
+def test_type_pilot_name():
+	total_records = requests.get("https://www.swapi.tech/api/starships/").json()['total_records']
+    starships = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + str(total_records))
+    results = starships.json()['results']
+
+    #   if unassigned python thinks it might be referenced before assignment
+    success = False
+    for result in results:
+        starship = requests.get(result['url']).json()
+        success = False
+		for pilot in starship['result']['properties']['pilots']
+			if type(requests.get(pilot).json()['result']['properties']['name'] == string:
+				success = True
+
+			if not success:
+				break
+
+		if not success:
+			break
+
+    assert success
 
 
 #   test all starship links are starships

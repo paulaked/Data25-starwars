@@ -1,5 +1,5 @@
 import pymongo
-from app.get_name_insert_id import get_name_insert_id
+from starwars.app.get_name_insert_id import get_name_insert_id
 
 client = pymongo.MongoClient()
 db = client['starwars']

@@ -1,6 +1,6 @@
 import requests
-from app.create_starship_list import create_starship_list
-from app.return_pilot_id import return_pilot_id
+from starwars.app.create_starship_list import create_starship_list
+from starwars.app.return_pilot_id import return_pilot_id
 
 
 #   Function iterates through pilot name from starship_data_list

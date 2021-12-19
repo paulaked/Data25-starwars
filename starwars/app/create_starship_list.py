@@ -1,5 +1,5 @@
 import requests
-from app.get_starship_url import get_api_url
+from starwars.app.get_starship_url import get_api_url
 
 
 #   Function creates a list of the properties data from each starship api

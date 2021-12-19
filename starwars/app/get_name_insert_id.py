@@ -12,4 +12,3 @@ def get_name_insert_id():
                 starship_list[starship_list.index(i)]['pilots'][i['pilots'].index(x)] = pilot_id
 
     return starship_list
-

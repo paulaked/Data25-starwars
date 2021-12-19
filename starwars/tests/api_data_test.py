@@ -8,8 +8,8 @@ def test_all_starships_endpoint():
     dict_key = requests.get("https://www.swapi.tech/api/starships/").json()
     is_true = False
     if 'results' in dict_key and type(dict_key['results']) == list and 'total_records' in dict_key:
-        for i in dict_key['results']:
-            if 'url' in dict_key['results']:
+        for result in dict_key['results']:
+            if 'url' in result:
                 is_true = True
 
     assert is_true is True
@@ -34,16 +34,17 @@ def test_url():
 #   test for correct data in individual api /starships/<id> endpoint
 #   check if result key, property key and pilots key in starship api and pilots is a list
 def test_individual_starship_endpoint():
-    urls = requests.get("https://www.swapi.tech/api/starships/").json()['results']
+    results = requests.get("https://www.swapi.tech/api/starships/").json()['results']
 
     #   if unassigned python thinks it might be referenced before assignment
     is_true = False
-    for url in urls:
-        dict_key = requests.get(url).json()
+    for result in results:
+        dict_key = requests.get(result['url']).json()
         is_true = False
-        if 'result' in dict_key and 'properties' in dict_key['results']:
-            if 'pilots' in dict_key['result']['properties'] and type(dict_key['result']['properties']['pilots']) == list:
-                is_true = True
+        if 'result' in dict_key and 'properties' in dict_key['result'] and \
+           'pilots' in dict_key['result']['properties'] and \
+           type(dict_key['result']['properties']['pilots']) == list:
+            is_true = True
 
         if is_true is False:
             break

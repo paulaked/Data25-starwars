@@ -7,11 +7,11 @@ def get_api_url():
     # find total number of records in API
     total_records = str(requests.get("https://www.swapi.tech/api/starships/").json()['total_records'])
     # concatenate total records to show all starships on one page
-    starship = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + total_records)
+    starships = requests.get("https://www.swapi.tech/api/starships?page=1&limit=" + total_records)
 
     url_list = []
-    # appending the 'results' values (individual starship urls) into a list
-    for i in starship.json()['results']:
-        url_list.append(i['url'])
+    # appending the 'results' values (starship urls) to a list
+    for starship in starships.json()['results']:
+        url_list.append(starship['url'])
 
     return url_list

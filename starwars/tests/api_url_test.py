@@ -1,3 +1,4 @@
+# tests to check if starships api endpoints work
 import requests
 
 

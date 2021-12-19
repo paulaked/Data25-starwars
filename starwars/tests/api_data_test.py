@@ -62,6 +62,3 @@ def test_if_starships():
         is_starship = requests.get(result['url']).json()['result']['description']
 
     assert is_starship == "A Starship"
-
-
-

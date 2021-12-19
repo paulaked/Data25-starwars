@@ -1,3 +1,4 @@
+#   tests to check connection status to mongo db and if required database and collection exist
 from pymongo import MongoClient
 
 client = MongoClient()

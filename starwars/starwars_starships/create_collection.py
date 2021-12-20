@@ -7,8 +7,11 @@ client = pymongo.MongoClient()
 db = client['starwars']
 
 
+
 def starships_collection(starships_list):
+
     db.create_collection("starships")
+
     for starship in starships_list:
         db.starships.insert_one(starship)
 

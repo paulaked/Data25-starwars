@@ -6,9 +6,9 @@ import starwars.config_manager as config
 #   gets the data from new endpoint showing all records in one place
 def get_api_url():
     # find total number of records in API
-    total_records = str(requests.get(config.SWAPI_URL + "/api/starships/").json()['total_records'])
+    total_records = str(requests.get(f"{config.SWAPI_URL}/api/starships/").json()['total_records'])
     # concatenate total records to show all starships on one page
-    starships = requests.get(config.SWAPI_URL + "/api/starships?page=1&limit=" + total_records)
+    starships = requests.get(f"{config.SWAPI_URL}/api/starships?page=1&limit=" + total_records)
 
     url_list = []
     # appending the 'results' values (starship urls) to a list

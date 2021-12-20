@@ -19,8 +19,8 @@ def test_all_starships_endpoint():
 #   test starship entries match total_records
 #   test all individual starship urls work
 def test_url():
-    total_records = requests.get(config.SWAPI_URL + "/api/starships/").json()['total_records']
-    starship = requests.get(config.SWAPI_URL + "/api/starships?page=1&limit=" + str(total_records))
+    total_records = requests.get(f"{config.SWAPI_URL}/api/starships/").json()['total_records']
+    starship = requests.get(f"{config.SWAPI_URL}/api/starships?page=1&limit=" + str(total_records))
 
     check_url = 0
     check = 0
@@ -36,8 +36,8 @@ def test_url():
 #   test for correct data in individual api /starships/<id> endpoint
 #   check if result key, property key and pilots key in starship api and pilots is a list
 def test_individual_starship_endpoint():
-    total_records = requests.get(config.SWAPI_URL + "/api/starships/").json()['total_records']
-    starships = requests.get(config.SWAPI_URL + "/api/starships?page=1&limit=" + str(total_records))
+    total_records = requests.get(f"{config.SWAPI_URL}/api/starships/").json()['total_records']
+    starships = requests.get(f"{config.SWAPI_URL}/api/starships?page=1&limit=" + str(total_records))
     results = starships.json()['results']
 
     #   if unassigned python thinks it might be referenced before assignment
@@ -59,8 +59,8 @@ def test_individual_starship_endpoint():
 #   test for correct data in pilot api /people/<id> endpoint
 #   check if pilot name is a string
 def test_type_pilot_name():
-    total_records = requests.get(config.SWAPI_URL + "/api/starships/").json()['total_records']
-    starships = requests.get(config.SWAPI_URL + "/api/starships?page=1&limit=" + str(total_records))
+    total_records = requests.get(f"{config.SWAPI_URL}/api/starships/").json()['total_records']
+    starships = requests.get(f"{config.SWAPI_URL}/api/starships?page=1&limit=" + str(total_records))
     results = starships.json()['results']
 
     #   if unassigned python thinks it might be referenced before assignment
@@ -83,7 +83,7 @@ def test_type_pilot_name():
 
 #   test all starship links are starships
 def test_if_starships():
-    starship = requests.get(config.SWAPI_URL + "/api/starships/").json()['results']
+    starship = requests.get(f"{config.SWAPI_URL}/api/starships/").json()['results']
 
     #   if unassigned python thinks it might be referenced before assignment
     is_starship = ''

@@ -7,6 +7,7 @@ from app import function_list
 #  Specify api address
 client = pymongo.MongoClient()
 db = client['starwars']
+db.drop_collection('starshipswids')
 db.create_collection('starshipswids')
 api_address = 'https://www.swapi.tech/api/starships'
 
@@ -46,18 +47,23 @@ for sublist in list_of_pilot_urls:
     for item in sublist:
         pilot_urls_flat.append(item)
 
-#  Create list of IDs associated with each pilot
-pilot_id_list = []
+#  Create list of names associated with each pilot
+pilot_name_list = []
 for url in pilot_urls_flat:
     people_info = function_list.extract_data(url)
-    pilot_id = people_info['result']['_id']
-    pilot_id_list.append(pilot_id)
-
+    pilot_id = people_info['result']['properties']['name']
+    pilot_name_list.append(pilot_id)
+print(pilot_name_list)
 #  Create dictionary, matching URL to ID
-new_dict = {k: v for k, v in zip(pilot_urls_flat,pilot_id_list)}
-
-#  Replace each pilot URL in each starship entry with the pilot's ID
-#  Insert all entries to the new database
+mongodb_ids = []
+for name in pilot_name_list:
+    mongo_pilot_id = db.characters.find_one({"name": name}, {"_id": 1})
+    mongodb_ids.append(mongo_pilot_id)
+print(mongodb_ids)
+new_dict = {k: v for k, v in zip(pilot_urls_flat,mongodb_ids)}
+print(new_dict)
+# Replace each pilot URL in each starship entry with the pilot's ID
+# Insert all entries to the new database
 for url in list_of_starships:
     ship_info = function_list.extract_data(url)
     pilot_id_list_again = []

@@ -10,6 +10,7 @@ from tests import testing
 ##code to import information to mongodb
 client = pymongo.MongoClient()
 db = client["starwars"]
+db.drop_collection("starships")  #Drops collection if exists
 db.create_collection("starships")
 
 # Code to access the starship information
@@ -33,7 +34,7 @@ for url in page_url:
     data = func_page.api_request(url)
     for i in data["results"]:
         url_list_ship.append(i["url"])
-#pprint(url_list_ship)
+print(len(url_list_ship))
 
 ############################################################# Code to access the people information
 # api_address_people = "https://www.swapi.tech/api/people"
@@ -74,20 +75,29 @@ for sublist in ship_pilot_url:
         pilot_urls_flat.append(item)
 #pprint(pilot_urls_flat)
 
-#Code to access the pilot_id from each url
-pilot_id_list = []
+#Code to access the name from each url
+pilot_name_list = []
 for i in pilot_urls_flat:
     people_info = func_page.api_request(i)
-    pilot_id = people_info["result"]["_id"]
-    pilot_id_list.append(pilot_id)
-#pprint(pilot_id_list)
+    pilot_id = people_info["result"]["properties"]["name"]
+    pilot_name_list.append(pilot_id)
+#pprint(pilot_name_list)
+
+#Code to access the character id after matching names with api and mongo database
+mongo_name_id_list = []
+for name in pilot_name_list:
+     mongo_name_id = db.characters.find_one({"name":name},{"_id":1})
+     mongo_name_id_list.append(mongo_name_id)
+#print(mongo_name_id_list)
+
 
 # Code to create a dictionary of people url and pilot_id
 key_list = pilot_urls_flat
-value_list = pilot_id_list
-people_url_id = {k: v for k,v in zip(key_list,value_list)}
-#print(people_url_id)
+value_list = mongo_name_id_list
+pilurl_mongoname_id = {k: v for k,v in zip(key_list,value_list)}
+#print(pilurl_mongoname_id)
 
+#code ti make ship data equal a list of person objectid, and placed in a created database called starships
 for url in url_list_ship:
     ship_data = func_page.api_request(url)
     people_url_id_list = []
@@ -95,42 +105,10 @@ for url in url_list_ship:
         if p_url == []:
             pass
         else:
-            people_url_id_list.append(people_url_id[p_url])
+            people_url_id_list.append(pilurl_mongoname_id[p_url])
             ship_data["result"]["properties"]["pilots"] = people_url_id_list
     db.starships.insert_one(ship_data)
     #pprint(ship_data)
-
-
-# for url in url_list_ship:
-#     ship_data = func_page.api_request(url)
-#     for p_url in ship_data["result"]["properties"]["pilots"]:
-#         print(len(p_url))
-#         if p_url in people_url_id.keys():
-#             ship_data["result"]["properties"]["pilots"] = people_url_id[p_url]
-#     print(ship_data)
-
-
-# Pilot id is the url for the person who pilots the ship
-# we want to replace the pilot ID with the _id from each person dictionary
-# we want to make a dictionary {["people ID]:["_Id]}
-# then can use panda to replace the information in each starship dictionary to show the pilot IDs instead of URLs
-
-# Extract _id for each pilot URL, then make a dictionary where key is the URL and value IS id
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ######### Testing
 # An area to test the functions are working correctly, further comments in testing.py

@@ -2,6 +2,14 @@ import requests
 import json
 import pymongo
 from pprint import pprint
+# from collections import Iterable
+# def flatten(lis):
+#      for item in lis:
+#          if isinstance(item, Iterable) and not isinstance(item, str):
+#              for x in flatten(item):
+#                  yield x
+#          else:
+#              yield item
 
 client = pymongo.MongoClient()
 db = client['starwars']
@@ -48,36 +56,54 @@ for i in urls_starships:
 pilots_url = []
 for i in starship_properties:
     pilots_url.append(i.get('pilots'))
+pilots_url2 = [x for x in pilots_url if x]
+flatList = [item for elem in pilots_url2 for item in elem]
+# print(flatList)
+
 # #
 # print(pilots_url)
 
-# retrieving the objectid's from the pilot urls
+# retrieving the name's from the pilot urls
 pilot_names = []
 for i in pilots_url:
     for k in i:
         pilot_names.append((((requests.get(k).json()).get("result")).get("properties").get("name")))
 
-# print(pilot_ids)
+# retrieving the objectId's from the pilot urls
+pilot_ids = []
+for i in pilots_url:
+    for k in i:
+        pilot_ids.append((((requests.get(k).json()).get("result")).get("_id")))
+# pprint(pilot_ids)
 
 
 # matching the pilot names to the objct id's in mongoDB
-db.create_collection("pilots")
-for i in pilot_names:
-    db.pilots.insert_one({
-        "name": i,
-        "pilot_id": db.characters.find_one({"name": i}, {"_id": 1})
-})
-
-joined = db.pilots.aggregate([{
-    "$lookup": {
-        "from": "characters",
-        "localField": "name._id",
-        "foreignField": "_id",
-        "as": "matched_name"
-    }
-}])
-
+# db.create_collection("pilots")
+# for i in pilot_names:
+#     db.pilots.insert_one({
+#         "name": i,
+#         "pilot_id": db.characters.find_one({"name": i}, {"_id": 1})
+# })
 #
+# joined = db.pilots.aggregate([{
+#     "$lookup": {
+#         "from": "characters",
+#         "localField": "name._id",
+#         "foreignField": "_id",
+#         "as": "matched_name"
+#     }
+# }])
+# for pilot in db.pilots.find({}):
+#     print(pilot)
+
+# made dictionary with pilot url and matching id from mongoDB
+pilot_dict = dict(zip(flatList, pilot_ids))
+print(pilot_dict)
+
+# for i in pilots_url:
+#     pilot_info = {
+#         db.pilots.find_one("pilot_id._id"): i
+#     }
 
 # def properties(api_url):
 #     url_list=[]

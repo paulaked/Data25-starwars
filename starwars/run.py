@@ -26,13 +26,14 @@ while True:
 url_list_ship = func_page.url_in_api(page_url)
 
 # Code to access just the pilot url and and append them to an empty list. return only values that arent empty
-ship_pilot_url = []
-for i in url_list_ship:
-    ship_info = func_page.api_request(i)
-    pilot_url = ship_info["result"]["properties"]["pilots"]
-    ship_pilot_url.append(pilot_url)
+# ship_pilot_url = []
+# for i in url_list_ship:
+#     ship_info = func_page.api_request(i)
+#     pilot_url = ship_info["result"]["properties"]["pilots"]
+#     ship_pilot_url.append(pilot_url)
+ship_pilot_url = func_page.pilot_url_list(url_list_ship)
 ship_pilot_url = [x for x in ship_pilot_url if x]
-
+pprint(ship_pilot_url)
 # Code to flatten the list of urls to remove a list of lists
 pilot_urls_flat = []
 for sublist in ship_pilot_url:

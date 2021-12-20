@@ -35,3 +35,11 @@ def url_in_api(page_url):
             url_list_ship.append(i["url"])
     return url_list_ship
 
+
+def pilot_url_list(url_list_ship):
+    ship_pilot_url = []
+    for i in url_list_ship:
+        ship_info = api_request(i)
+        pilot_url = ship_info["result"]["properties"]["pilots"]
+        ship_pilot_url.append(pilot_url)
+    return ship_pilot_url

@@ -30,6 +30,12 @@ def func_five_test(page_url):
     assert type(func_page.url_in_api(page_url)) is list
 
 
+def func_six_test(url_list_ship):
+    for i in url_list_ship:
+        assert type(func_page.pilot_url_list(url_list_ship))[i] is list
+
+
+
 # Testing - An area to test the functions are working correctly
 # func_one_test(web_address)
 
@@ -45,3 +51,7 @@ def func_five_test(page_url):
 # Test func_five_test
 # page_url = ["https://www.swapi.tech/api/starships/"]
 # func_five_test(page_url)
+
+# Test func_six_test
+# url_list_ships = [func_page.url_in_api(page_url)]  # Uncomment line 52
+# func_six_test(url_list_ships)

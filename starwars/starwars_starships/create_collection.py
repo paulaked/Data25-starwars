@@ -1,19 +1,14 @@
-import requests
 import pymongo
-from upload_starships import insert_starships
-from pilot_keys import insert_pilots
 
+# Setup of pymongo
 client = pymongo.MongoClient()
 db = client['starwars']
 
 
-
+# starships_collection is a function that takes the list created in pilot_keys
+# and creates a starships collection in MongoDB
 def starships_collection(starships_list):
-
     db.create_collection("starships")
 
     for starship in starships_list:
         db.starships.insert_one(starship)
-
-
-starships_collection(insert_pilots(insert_starships("https://www.swapi.tech/api/starships/")))

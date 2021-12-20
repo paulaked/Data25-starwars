@@ -1,9 +1,7 @@
 import requests
-import pprint as pp
 
-
-# insert_starships is a function that collects the urls of the starship api, formats them and
-# appends them to a list
+# insert_starships is a function that collects the urls of the starship api from the swapi,
+# formats them and appends them to a list
 
 def insert_starships(url_link):
     initial_list = []
@@ -16,4 +14,4 @@ def insert_starships(url_link):
     return initial_list
 
 
-#pp.pprint(insert_starships("https://www.swapi.tech/api/starships/"))
+

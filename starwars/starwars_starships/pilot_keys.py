@@ -1,12 +1,13 @@
-from upload_starships import insert_starships
 import pymongo
 import requests
-import pprint as pp
 
+# Setup of pymongo
 client = pymongo.MongoClient()
 db = client['starwars']
 
 
+# insert_pilots is a function that finds the pilot name from the pilot url and inserts
+# a pymongo function that will insert the pilot ID when the collection in made in MongoDB
 def insert_pilots(starships_list):
     for ship in starships_list:
         if ship['pilots'] == []:
@@ -22,4 +23,4 @@ def insert_pilots(starships_list):
 
     return starships_list
 
-# pp.pprint(insert_pilots(insert_starships("https://www.swapi.tech/api/starships/")))
+

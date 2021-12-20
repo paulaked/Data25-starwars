@@ -21,11 +21,27 @@ def func_three_test(list, data):
     assert len(list) == data["total_pages"]
 
 
-# def func_four_test():
-#     assert
+# Test to see if the dictionary makes a dictionary
+def func_four_test(key, value):
+    assert type(func_page.make_dict(key, value)) is dict
+
+
+def func_five_test(page_url):
+    assert type(func_page.url_in_api(page_url)) is list
+
+
 # Testing - An area to test the functions are working correctly
 # func_one_test(web_address)
 
 # func_two_test("https://www.swapi.tech/api/starships/")
 
-# testing.func_three_test(page_url, page_contents)
+# func_three_test(page_url, page_contents)
+
+# Test func_four_test
+# key = ["a","b","c"]
+# value = [1,2,3]
+# print(func_four_test(key, value))
+
+# Test func_five_test
+# page_url = ["https://www.swapi.tech/api/starships/"]
+# func_five_test(page_url)

@@ -23,13 +23,37 @@ def collecting_starships_and_pilots_function():
     pilot_urls = []
     for i in starships_info:
         pilot_urls.append(i.get('result').get('properties').get('pilots'))
-    # pprint(pilot_urls)
+    pprint(pilot_urls)
 
-    pilot_info = []
-    for lists in pilot_urls:
-        for elements in lists:
-            pilot_info.append(requests.get(elements).json())
-    pprint(pilot_info)
+    print("----------------------------------------")
+
+    for i in pilot_urls:
+        if not i:
+            pilot_urls.remove(i)
+    pprint(pilot_urls)
+
+    # pilot_info = []
+    # for lists in pilot_urls:
+    #     for elements in lists:
+    #         pilot_info.append(requests.get(elements).json())
+    # pprint(pilot_info)
 
 
 collecting_starships_and_pilots_function()
+
+#matching the pilot names to object id's in mongo
+#db.create_collection("pilots")
+#for i in pilot_names:
+#    db.pilots.insert_one({
+#           "name": i,
+#           "pilot_id": db.characters.find_one({"name": i}, {"_id": 1}0
+#})
+
+#joined = db.pilots.aggregate([{
+#   "$lookup": {
+#       "from": "characters",
+#       "localField": "name._id",
+#       "foreignField": "_id",
+#       "as": "matched_name",
+#   }
+#}])

@@ -43,18 +43,48 @@ for i in list1:
 # requesting the properties of each url
 starship_properties = []
 for i in urls_starships:
-    starship_properties.append(requests.get(i).json())
+    starship_properties.append(((requests.get(i).json()).get("result").get('properties')))
 
 pilots_url = []
 for i in starship_properties:
-    pilots_url.append(i.get('result').get('properties').get('pilots'))
-
+    pilots_url.append(i.get('pilots'))
+# #
 # print(pilots_url)
 
 # retrieving the objectid's from the pilot urls
-pilot_ids = []
+pilot_names = []
 for i in pilots_url:
     for k in i:
-        pilot_ids.append(((requests.get(k).json()).get("result").get("_id")))
+        pilot_names.append((((requests.get(k).json()).get("result")).get("properties").get("name")))
 
+# print(pilot_ids)
+
+
+# matching the pilot names to the objct id's in mongoDB
+db.create_collection("pilots")
+for i in pilot_names:
+    db.pilots.insert_one({
+        "name": i,
+        "pilot_id": db.characters.find_one({"name": i}, {"_id": 1})
+})
+
+joined = db.pilots.aggregate([{
+    "$lookup": {
+        "from": "characters",
+        "localField": "name._id",
+        "foreignField": "_id",
+        "as": "matched_name"
+    }
+}])
+
+#
+
+# def properties(api_url):
+#     url_list=[]
+#     api_url_request_json = requests.get(api_url).json()
+#     results = api_url_request_json.get('results')
+#     for i in results:
+#         url_list.append(i.get('url'))
+#     for i in url_list:
+#         print(((requests.get(i).json()).get("result").get('properties')))
 

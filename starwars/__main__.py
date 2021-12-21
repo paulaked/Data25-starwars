@@ -1,9 +1,7 @@
-from app import get_request
-from app import get_starship_urls
+from app.app import StarshipUrls as s
 
 if __name__ == '__main__':
     api = "https://www.swapi.tech/api/starships"
+    api_response = s.get_request(s(), api)
+    response_json = s.make_json(s(), api_response)
 
-    starships_data = get_request.get_request(api)
-
-    starship_urls_list = get_starship_urls.get_starship_urls(starships_data)

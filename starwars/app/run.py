@@ -19,21 +19,27 @@ while True:
     next_page_url = func_page.turn_page(page_contents)
     if next_page_url == None:
         break
-    page_url.append(next_page_url)
-    web_address = next_page_url
+    else:
+        page_url.append(next_page_url)
+        web_address = next_page_url
 
-# code to access a list of the ship urls
-url_list_ship = func_page.url_in_api(page_url)
+# Code to access a list of the ship urls
+url_list_ship = []  # A list of all starship url
+for url in page_url:
+    data = func_page.api_request(url)
+    for i in data["results"]:
+        url_list_ship.append(i["url"])
 
+# print(url_list_ship)
 # Code to access just the pilot url and and append them to an empty list. return only values that arent empty
-# ship_pilot_url = []
-# for i in url_list_ship:
-#     ship_info = func_page.api_request(i)
-#     pilot_url = ship_info["result"]["properties"]["pilots"]
-#     ship_pilot_url.append(pilot_url)
-ship_pilot_url = func_page.pilot_url_list(url_list_ship)
+ship_pilot_url = []
+for i in url_list_ship:
+    ship_info = func_page.api_request(i)
+    pilot_url = ship_info["result"]["properties"]["pilots"]
+    ship_pilot_url.append(pilot_url)
 ship_pilot_url = [x for x in ship_pilot_url if x]
-pprint(ship_pilot_url)
+
+
 # Code to flatten the list of urls to remove a list of lists
 pilot_urls_flat = []
 for sublist in ship_pilot_url:
@@ -56,7 +62,8 @@ for name in pilot_name_list:
 # Code to create a dictionary of people url and pilot_id
 key_list = pilot_urls_flat
 value_list = mongo_name_id_list
-pilot_url_mongo_name_id = func_page.make_dict(key_list, value_list)
+pilot_url_mongo_name_id = {k: v for k, v in zip(key_list, value_list)}
+#pilot_url_mongo_name_id = func_page.make_dict(key_list, value_list)
 
 # Code to make ship data equal a list of person object id, and placed in a created database called starships
 for url in url_list_ship:

@@ -1,5 +1,7 @@
 import requests
+import pymongo
 from pprint import pprint
+
 
 
 
@@ -38,17 +40,54 @@ if ship['next'] != None:
 #print(len(url_list))
 #for i in url_list:
     #print(i)
+client = pymongo.MongoClient() # putting nothing here means the database is local
+db = client['starwars']
+gt_table = db.characters.find({})
 
+
+starships =[]
 for i in url_list:
     url_content = requests.get(i)
     url_content = url_content.json()
-    #print(url_content)
+    # print(url_content)
     result = url_content['result']
     properties = result['properties']
     pilot_url = properties['pilots']
+    if pilot_url == []:
+        continue
+
+    pilot_name = []
     for pilot in pilot_url:
+
         pilot_content = requests.get(pilot)
-        print(pilot_content.json())
+        pilot_content = pilot_content.json()
+        pilot_name.append(pilot_content['result']['properties']['name'])
+    print(pilot_name)
+    pilots_id = []
+    for i in pilot_name:
+        for n in db.characters.find({'name': i}):
+            pilots_id.append(n["_id"])
+    url_content['result']['properties']['pilots'] = pilots_id
+
+    print(pilots_id)
+
+
+    starships.append(url_content)
+
+
+#pilots_id = []
+#for i in gt_table:
+    #if i['name'] in pilot_name:
+        #pilots_id.append(i['_id'])
+
+for i in starships:
+    print(i)
+#print(pilots_id)
+
+
+print("done")
+#pilot_name.append((pilot_content['result']['properties']['name']))
+# pilot_names = pilot_content['result']['properties']['name']
 
 
 
@@ -64,7 +103,6 @@ for i in url_list:
 
 #print(len(url_list))
 #print(url_list)
-
 
 
 

@@ -21,10 +21,12 @@ starshipsjsons = [starships1, starships2, starships3, starships4]
 starships_names = []
 starships_url = []
 starships_info = []
-pilot_urls = []
+pilot_urls_with_empties = []
 pilot_info = []
 pilot_names = []
-pilot_url2 = []
+pilot_url_without_empties = []
+pilot_urls_ind = []
+
 
 def collecting_starships_and_pilots():
     for x in range(0, 4):
@@ -39,14 +41,19 @@ def collecting_starships_and_pilots():
     # pprint(starships_info)
 
     for i in starships_info:
-        pilot_urls.append(i.get('result').get('properties').get('pilots'))
+        pilot_urls_with_empties.append(i.get('result').get('properties').get('pilots'))
     # pprint(pilot_urls)
-    pilot_url2 = [x for x in pilot_urls if x]
-    # pprint(pilot_url2)
+    pilot_url_without_empties = [x for x in pilot_urls_with_empties if x]
+    # pprint(pilot_url_without_empties)
 
-    for lists in pilot_url2:
+    for lists in pilot_url_without_empties:
         for elements in lists:
             pilot_info.append(requests.get(elements).json())
+
+    for i in pilot_url_without_empties:
+        for x in i:
+            pilot_urls_ind.append(x)
+    # pprint(pilot_urls_ind)
 
     for i in pilot_info:
         pilot_names.append(i.get('result').get('properties').get('name'))
@@ -69,7 +76,7 @@ def making_pilot_collection():
              "as": "matched_name"
         }
     }])
-    # for x in db.pilots.find({}):
+    # for x in joined:
     #     print(x)
 
 
@@ -78,9 +85,10 @@ def making_dictionary():
     matching_ids = []
     for i in pilot_names:
         matching_ids.append(db.pilots.find_one({"name": i}, {"_id":0, "pilot_id._id": 1}))
-    pprint(matching_ids)
-    # pilot_matchingid_dict = dict(zip(pilot_urls,matching_ids))
-    # pprint(pilot_matchingid_dict)
+    # pprint(matching_ids)
+
+    pilot_matchingid_dict = dict(zip(pilot_urls_ind,matching_ids))
+    pprint(pilot_matchingid_dict)
 
 
 making_dictionary()

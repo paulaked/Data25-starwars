@@ -13,17 +13,17 @@ class StarshipUrls:
 
     def make_json(self, response):
         self.response = response
-        return self.response.json()
+        response_json = self.response.json()
+        return response_json
 
-        # Function that requests an address and returns
-        # the response as a .json format.
-
-    # def collect_urls(self, page_content):
-    #     self.page_content = page_content
-    #     url_list = []
-    #     for result in page_content["results"]:
-    #         url_list.append(result["url"])
-    #     return url_list
-    #
-    #     # Function that returns a list of starship urls
-    #     # from the  api page
+    def collect_urls(self, response_json, api_address):
+        self.response_json = response_json
+        self.api_address = api_address
+        starship_urls = []
+        for page in range(1, response_json["total_pages"] + 1):
+            address = api_address + "?page=" + str(page) + "&limit=10"
+            starships = StarshipUrls.get_request(StarshipUrls(), address)
+            starships = StarshipUrls.make_json(StarshipUrls(), starships)
+            for dict in starships["results"]:
+                starship_urls.append(dict["url"])
+        return starship_urls

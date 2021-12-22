@@ -1,6 +1,7 @@
 import unittest
-from starwars.app.app import ApiRequest as ar
-from starwars.app.app import StarshipUrls as su
+from starwars.app.app import get_request
+from starwars.app.app import make_json
+from starwars.app.app import collect_urls
 
 
 
@@ -8,18 +9,18 @@ class TestApiRequest(unittest.TestCase):
 
     def test_status_code(self):
         address = "https://www.swapi.tech/api/starships"
-        status_code = ar.get_request(ar(address)).status_code
+        status_code = get_request(address).status_code
         self.assertEqual(status_code, 200)
 
     def test_type_dict(self):
         address = "https://www.swapi.tech/api/starships"
-        data = ar.make_json(ar(address), ar.get_request(ar(address)))
+        data = make_json(get_request(address))
         self.assertIsInstance(data, dict)
 
-
-    def test_total_ship_urls(self):
-        data = ar.make_json(self.a_a, a.get_request(self.a_a))
-        list_length = len(s.collect_urls(self.a_a, data))
+    def test_total_starships_returned(self):
+        address = "https://www.swapi.tech/api/starships"
+        data = make_json(get_request(address))
+        list_length = len(collect_urls(address, data))
         total_records = data["total_records"]
         self.assertEqual(list_length, total_records)
 

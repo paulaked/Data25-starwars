@@ -1,40 +1,23 @@
 import requests
 
 
-class ApiRequest:
-
-    def __init__(self, api_address):
-        self.api_address = api_address
-
-
-    def get_request(self):
-        response = requests.get(self.api_address)
-        return response
-
-    def make_json(self, response):
-        self.response = response
-        response_json = response.json()
-        return response_json
+def get_request(api_address):
+    api_response = requests.get(api_address)
+    return api_response
 
 
-class StarshipUrls(ApiRequest):
-    def __init__(self, response_json):
-        response_json.self = response_json
-        super().__init__(self)
+def make_json(api_response):
+    response_json = api_response.json()
+    return response_json
 
 
-    def collect_urls(self):
-        data = super().make_json(super().response)
-        starship_urls = []
-        for page in range(1, data["total_pages"] + 1):
-            address = super().api_address + "?page=" + str(page) + "&limit=10"
-            starships = super(address).get_request()
-            starships = super().make_json(starships)
-            for dict in starships["results"]:
-                starship_urls.append(dict["url"])
-        return starship_urls
+def collect_urls(api_address, response_json):
+    starship_urls = []
+    for page in range(1, response_json["total_pages"] + 1):
+        starships_page_address = api_address + "?page=" + str(page) + "&limit=10"
+        starships_page_content = get_request(starships_page_address)
+        starships_page_content = make_json(starships_page_content)
+        for dict in starships_page_content["results"]:
+            starship_urls.append(dict["url"])
+    return starship_urls
 
-# class CollectPilotNames(StarshipUrls):
-#     def __init__(self, starship_urls):
-#         CollectPilotNames.__init__(self, starship_urls)
-#

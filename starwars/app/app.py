@@ -15,9 +15,12 @@ def collect_urls(api_address, response_json):
     starship_urls = []
     for page in range(1, response_json["total_pages"] + 1):
         starships_page_address = api_address + "?page=" + str(page) + "&limit=10"
-        starships_page_content = get_request(starships_page_address)
-        starships_page_content = make_json(starships_page_content)
+        starships_page_content = make_json(get_request(starships_page_address))
         for dict in starships_page_content["results"]:
             starship_urls.append(dict["url"])
     return starship_urls
+
+def collect_pilot_urls(starship_urls):
+    for url in starship_urls:
+        starships_page_content = make_json(get_request(url))
 

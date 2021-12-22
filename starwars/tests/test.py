@@ -7,12 +7,12 @@ from starwars.app.app import collect_urls
 
 class TestApiRequest(unittest.TestCase):
 
-    def test_status_code(self):
+    def test_api_status_code(self):
         address = "https://www.swapi.tech/api/starships"
         status_code = get_request(address).status_code
         self.assertEqual(status_code, 200)
 
-    def test_type_dict(self):
+    def test_api_response_type_dict(self):
         address = "https://www.swapi.tech/api/starships"
         data = make_json(get_request(address))
         self.assertIsInstance(data, dict)
@@ -23,6 +23,24 @@ class TestApiRequest(unittest.TestCase):
         list_length = len(collect_urls(address, data))
         total_records = data["total_records"]
         self.assertEqual(list_length, total_records)
+
+    def test_starship_urls_type_list(self):
+        address = "https://www.swapi.tech/api/starships/63"
+        data = make_json(get_request(address))
+        starship_urls = collect_urls(address, data)
+        self.assertIsInstance(starship_urls, list)
+
+    def test_starship_status_code(self):
+        address =
+        self.assertEqual(status_code, dict)
+
+    def test_starship_type_dict(self):
+        self.assertIsInstance(starship, dict)
+
+    def test_total_starship_iterated(self):
+        self.assertEqual(starship_urls_length, pilot_list_length)
+
+    def
 
 if __name__ == "__main__":
     unittest.main()

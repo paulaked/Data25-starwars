@@ -22,12 +22,12 @@ def func_three_test(list, data):
 
 
 # Test to see if the dictionary makes a dictionary
-def func_four_test(key, value):
-    assert type(func_page.make_dict(key, value)) is dict
-
-
-def func_five_test(page_url):
-    assert type(func_page.url_in_api(page_url)) is list
+# def func_four_test(key, value):
+#     assert type(func_page.make_dict(key, value)) is dict
+#
+#
+# def func_five_test(page_url):
+#     assert type(func_page.url_in_api(page_url)) is list
 
 
 # Testing - An area to test the functions are working correctly

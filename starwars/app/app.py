@@ -21,6 +21,9 @@ def collect_urls(api_address, response_json):
     return starship_urls
 
 def collect_pilot_urls(starship_urls):
+    pilot_urls = []
     for url in starship_urls:
         starships_page_content = make_json(get_request(url))
+        pilot_urls.append(starships_page_content["result"]["properties"]["pilots"])
+    return pilot_urls
 

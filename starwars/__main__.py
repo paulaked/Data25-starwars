@@ -2,14 +2,6 @@ import requests
 import json
 import pymongo
 from pprint import pprint
-# from collections import Iterable
-# def flatten(lis):
-#      for item in lis:
-#          if isinstance(item, Iterable) and not isinstance(item, str):
-#              for x in flatten(item):
-#                  yield x
-#          else:
-#              yield item
 
 client = pymongo.MongoClient()
 db = client['starwars']
@@ -53,21 +45,34 @@ starship_properties = []
 for i in urls_starships:
     starship_properties.append(((requests.get(i).json()).get("result").get('properties')))
 
+# print(starship_properties)
+
+# retrieving the pilot url's from the starship properties
 pilots_url = []
 for i in starship_properties:
     pilots_url.append(i.get('pilots'))
 pilots_url2 = [x for x in pilots_url if x]
 flatList = [item for elem in pilots_url2 for item in elem]
 # print(flatList)
-
-# #
 # print(pilots_url)
+pilot_names = []
+for url in flatList:
+    url_info = requests.get(url).json()
+    pilot_id = url_info['result']['properties']['name']
+    pilot_names.append(pilot_id)
+
+
+mongo_ids = []
+for name in pilot_names:
+    mongo_id = db.characters.find_one({"name": name}, {"_id": 1})
+    mongo_ids.append(mongo_id)
 
 # retrieving the name's from the pilot urls
 pilot_names = []
 for i in pilots_url:
     for k in i:
         pilot_names.append((((requests.get(k).json()).get("result")).get("properties").get("name")))
+
 
 # retrieving the objectId's from the pilot urls
 pilot_ids = []
@@ -76,6 +81,8 @@ for i in pilots_url:
         pilot_ids.append((((requests.get(k).json()).get("result")).get("_id")))
 # pprint(pilot_ids)
 
+# for i in starship_properties:
+#     pprint(i.get('pilots'))
 
 # matching the pilot names to the objct id's in mongoDB
 # db.create_collection("pilots")
@@ -93,24 +100,67 @@ for i in pilots_url:
 #         "as": "matched_name"
 #     }
 # }])
-# for pilot in db.pilots.find({}):
-#     print(pilot)
+
 
 # made dictionary with pilot url and matching id from mongoDB
-pilot_dict = dict(zip(flatList, pilot_ids))
-print(pilot_dict)
+pilot_dict = dict(zip(flatList, mongo_ids))
+# print(pilot_dict)
 
-# for i in pilots_url:
-#     pilot_info = {
-#         db.pilots.find_one("pilot_id._id"): i
+db.drop_collection("starships")
+db.create_collection("starships")
+
+for i in urls_starships:
+    ship_info = requests.get(i).json()
+    pilot_id_list=[]
+    for i in ship_info['result']['properties']['pilots']:
+        if i == []:
+            pass
+        else:
+            pilot_id_list.append(pilot_dict[i])
+            ship_info['result']['properties']['pilots'] = pilot_id_list
+    db.starships.insert_one(ship_info)
+
+
+#
+# for starship in starship_properties:
+#     for property in starship:
+#         if property != pilots:
+#             pass
+#         else:
+#             list_url = []
+#             for i in property:
+#                 for url in pilot_dict:
+#                     if i == url:
+#                         list_url.append(pilot_dict[url])
+#                         print(list_url)
+#                 starship['pilots'] = list_url
+#
+# for starship in starship_properties:
+#     pprint(starship)
+
+
+
+# inserting each starship into mongoDB
+
+
+# for i in starship_properties:
+#     db.starships.insert_one({
+#         "properties": i,
+#
+#
+# })
+
+# joined = db.pilots.aggregate([{
+#     "$lookup": {
+#         "from": "pilots",
+#         "localField": "pilot_ids.pilot_id",
+#         "foreignField": "pilot_id",
+#         "as": "matched_name"
 #     }
+# }])
 
-# def properties(api_url):
-#     url_list=[]
-#     api_url_request_json = requests.get(api_url).json()
-#     results = api_url_request_json.get('results')
-#     for i in results:
-#         url_list.append(i.get('url'))
-#     for i in url_list:
-#         print(((requests.get(i).json()).get("result").get('properties')))
+
+
+
+
 

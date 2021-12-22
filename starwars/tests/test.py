@@ -25,22 +25,29 @@ class TestApiRequest(unittest.TestCase):
         self.assertEqual(list_length, total_records)
 
     def test_starship_urls_type_list(self):
-        address = "https://www.swapi.tech/api/starships/63"
+        address = "https://www.swapi.tech/api/starships"
         data = make_json(get_request(address))
         starship_urls = collect_urls(address, data)
         self.assertIsInstance(starship_urls, list)
 
     def test_starship_status_code(self):
-        address =
-        self.assertEqual(status_code, dict)
+        address = "https://www.swapi.tech/api/starships/63"
+        status_code = get_request(address).status_code
+        self.assertEqual(status_code, 200)
 
     def test_starship_type_dict(self):
-        self.assertIsInstance(starship, dict)
+        address = "https://www.swapi.tech/api/starships/63"
+        data = make_json(get_request(address))
+        self.assertIsInstance(data, dict)
 
     def test_total_starship_iterated(self):
+        address = "https://www.swapi.tech/api/starships"
+        data = make_json(get_request(address))
+        starship_urls = collect_urls(address, data)
+        
+        pilot_urls_list_length =
         self.assertEqual(starship_urls_length, pilot_list_length)
 
-    def
 
 if __name__ == "__main__":
     unittest.main()

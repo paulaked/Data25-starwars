@@ -3,7 +3,7 @@ from starwars.app.app import get_request
 from starwars.app.app import make_json
 from starwars.app.app import collect_urls
 from starwars.app.app import collect_pilot_urls
-
+from starwars.app.app import collect_pilot_names
 
 
 class TestApiRequest(unittest.TestCase):
@@ -49,6 +49,13 @@ class TestApiRequest(unittest.TestCase):
         starship_urls_list_length = len(starship_urls)
         pilot_urls_list_length = len(pilot_urls)
         self.assertEqual(starship_urls_list_length, pilot_urls_list_length)
+
+    def test_pilot_status_code(self):
+        address = "https://www.swapi.tech/api/people/10"
+        status_code = get_request(address).status_code
+        self.assertEqual(status_code, 200)
+
+    def test_total_pilots_iterated(self):
 
 
 if __name__ == "__main__":

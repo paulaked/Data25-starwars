@@ -9,5 +9,5 @@ if __name__ == '__main__':
     response_json = make_json(api_response)
     starship_urls = collect_urls(api, response_json)
     pilot_urls = collect_pilot_urls(starship_urls)
-    print(pilot_urls)
+
 

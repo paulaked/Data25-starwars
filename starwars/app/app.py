@@ -27,3 +27,10 @@ def collect_pilot_urls(starship_urls):
         pilot_urls.append(starships_page_content["result"]["properties"]["pilots"])
     return pilot_urls
 
+def collect_pilot_names(pilot_urls):
+    pilot_names = []
+    for list_of_urls in pilot_urls:
+        for url in list_of_urls
+            pilot_data = make_json(get_request(url))
+            pilot_names.append(pilot_data["result"]["properties"]["name"])
+    return pilot_names

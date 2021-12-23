@@ -2,6 +2,7 @@ import requests
 import json
 from pprint import pprint
 import os
+import pymongo
 
 # Retrieve starwars api data from swapi
 # Convert api to json format
@@ -55,16 +56,19 @@ import os
 
 
 client = pymongo.MongoClient()
-db = client['star_wars_2']
+db = client['star_wars_3']
 sw_starships = db['starship_info']
 sw_characters = db['character_info']
 
 # Create directory in locally/repository manually
-for i in change_pilot_urls_to_name():
-    with open(os.path.join('starships', i['name'] + '.json'), 'w') as f:
-        f.write(json.dumps(i))
+# for i in change_pilot_urls_to_name():
+#     with open(os.path.join('starships', i['name'] + '.json'), 'w') as f:
+#         f.write(json.dumps(i))
 
-
+for i in os.listdir('starships'):
+    with open(os.path.join('starships', i), 'r') as f:
+        # print(f.read())
+        up = sw_starships.insert_one(json.load(f))
 
 
 

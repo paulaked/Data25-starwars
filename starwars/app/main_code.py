@@ -1,6 +1,7 @@
 import requests
 import json
 from pprint import pprint
+import os
 
 # Retrieve starwars api data from swapi
 # Convert api to json format
@@ -50,7 +51,23 @@ def change_pilot_urls_to_name():
         starships_updated.append(i)
     return  starships_updated
 
-pprint(change_pilot_urls_to_name())
+# pprint(change_pilot_urls_to_name())
+
+
+# client = pymongo.MongoClient()
+# db = client['star_wars_2']
+# sw_starships = db['starship_info']
+# sw_characters = db['character_info']
+
+# Create directory in locally/repository manually
+for i in change_pilot_urls_to_name():
+    with open(os.path.join('starships', i['name'] + '.json'), 'w') as f:
+        f.write(json.dumps(i))
+
+
+
+
+
 
 
 

@@ -23,18 +23,18 @@ def get_raw_starships():
     
 # pprint.pprint(get_raw_starships())
 
-def get_relavent_info():
+def get_relevant_info():
     starship_data = []
     for url in get_raw_starships():
         starship_data.append(requests.get(url).json()['result']['properties']) 
     return starship_data
     # returns json containing information in the 'properties' category
 
-# pprint.pprint(get_relavent_info())
+# pprint.pprint(get_relevant_info())
 
 def get_pilots_in_list():
     new_starship_pilot_data = []
-    starship_data = get_relavent_info()
+    starship_data = get_relevant_info()
     for starship in starship_data:
         if starship['pilots'] ==[]:
             pass

@@ -37,7 +37,7 @@ def get_pilots_in_list():
     starship_data = get_relavent_info()
     for starship in starship_data:
         if starship['pilots'] ==[]:
-            continue
+            pass
         else:
             starship_pilots = starship['pilots']
             pilot_list = []

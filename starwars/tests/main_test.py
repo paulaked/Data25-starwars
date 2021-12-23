@@ -45,3 +45,13 @@ def test_replace_oids_success():
 def test_insert_starships_data():
     insert_starships()
     assert any(db.starships.find({}))
+
+
+# Test that for each starship, the pilots section contains a list of ObjectIDs.
+def test_insert_starships_pilots():
+    insert_starships()
+    data = db.starships.find({})
+    for item in data:
+        if pd.notnull(item["pilots"]) and "ObjectID" not in item["pilots"]:
+            flag = False
+    assert flag

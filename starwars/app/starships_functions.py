@@ -52,9 +52,3 @@ def get_pilots_in_list():
 
 pprint.pprint(get_pilots_in_list())
 
-
-
-
-
-
-

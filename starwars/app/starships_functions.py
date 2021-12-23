@@ -1,10 +1,9 @@
 import requests
 import pprint
 import json
-from itertools import chain
 import pymongo
 
-# set up pymongo
+# SET UP PYMONGO
 client = pymongo.MongoClient()
 db = client['starwars']
 

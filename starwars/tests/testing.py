@@ -7,7 +7,9 @@ from app import func_page
 
 # This code test that the output is a dictionary
 def func_one_test(url):
-    assert type(func_page.api_request(url)) is dict
+    assert type(func_page.api_request(url)) is int
+
+
 
 
 # This code tests the status code = 200

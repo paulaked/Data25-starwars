@@ -1,6 +1,5 @@
-from __main__ import *
+# test the info extracted is of the correct type
+url = "https://www.swapi.tech/api/starships/"
 
-def test_properties():
-    assert properties("https://www.swapi.tech/api/starships/")
-
-test_properties()
+def test_extract_info():
+    assert type(extract_info(url)) is dict

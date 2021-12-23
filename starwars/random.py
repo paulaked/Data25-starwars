@@ -47,4 +47,12 @@ def test_properties():
     assert properties("https://www.swapi.tech/api/starships/")
 
 
-properties("https://www.swapi.tech/api/starships/")
+def extract_info(api_url):
+    api_url_request_json = requests.get(api_url).json()
+
+
+# test the info extracted is of the correct type
+url = "https://www.swapi.tech/api/starships/"
+
+def test_extract_info():
+    assert type(extract_info(url)) is dict

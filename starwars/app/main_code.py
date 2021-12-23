@@ -26,8 +26,16 @@ def collect_results():
         starship_id.append(i)
     return starship_id
 
-pprint(collect_results())
+# pprint(collect_results())
 
+# Collect all starship urls into a list
+def collect_urls():
+    starship_urls =[]
+    for i in collect_results():
+        starship_urls.append(i['url'])
+    return starship_urls
+
+pprint(collect_urls())
 
 
 # pprint(response1)

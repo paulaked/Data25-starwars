@@ -1,4 +1,5 @@
 import pymongo
+import pandas as pd
 import requests
 import json
 from pprint import pprint
@@ -25,28 +26,30 @@ def pull_data():
     return starships
 
 
-def replace_oids(data):
+def replace_oids():
     # Extract the starship URLs which link to the pilot details.
     starship_details = []
-    for item in data:
+    for item in pull_data():
         for elements in item:
-            starship_details.append(elements["url"])
+            starship_details.append(requests.get(elements["url"]).json()["result"]["properties"])
 
-    # Replace pilots with list of character OIDs.
-    # replaced_data = []
-    # for starship in starship_details:
-    #     pilot_list = []
-    #     for pilot in starship["pilots"]:
-    #         name = requests.get(pilot).json()["result"]["properties"]["name"]
-    #         pilot_id = db.characters.find_one({"name": name}, {"_id": 1})
-    #         pilot_list.append(pilot_id)
-    #     starship.update({'pilots': pilot_list})
-    return starship_details
+    # Replace pilot URLs with list of character OIDs.
+    replaced_data = []
+    for starship in starship_details:
+        pilot_list = []
+        for pilot in starship["pilots"]:
+            pilot_list.append(requests.get(pilot).json()["result"]["properties"]["name"])
+            # pilot_id = db.characters.find_one({"name": name}, {"_id": 1})
+            # pilot_list.append(pilot_id)
+        starship.update({'pilots': pilot_list})
+        replaced_data.append(starship)
+    return replaced_data
 
 
 def insert_starships():
     # Insert starships into the database.
-    db.create_collection("starships")
+    if pd.isnull(db.starships.find({})):
+        db.create_collection("starships")
 
 
 # --------------- EXTRA TESTS --------------- #
@@ -57,12 +60,12 @@ for i in data1:
     print(i)
 
 print("# ------------------ FUNCTION 2: PULL DATA ------------------ #")
-data2 = pull_data()
-for i in data2:
-    print(i)
+# data2 = pull_data()
+# for i in data2:
+#     print(i)
 
 print("# ------------------ FUNCTION 3: REPLACE OBJECT IDS ------------------ #")
-data3 = replace_oids(data2)
+data3 = replace_oids()
 for i in data3:
     print(i)
 

@@ -5,6 +5,7 @@ from starwars.app.AppMain import *
 
 # ------------------ FUNCTION 1: DROP STARSHIPS ------------------ #
 
+# PASSED
 # Test that drop_starships completely empties the starships collection.
 def test_drop_starships():
     drop_starships()
@@ -14,6 +15,7 @@ def test_drop_starships():
 
 # ------------------ FUNCTION 2: PULL DATA ------------------ #
 
+#PASSED
 # Test that at least some data has been pulled from the API.
 def test_pull_data():
     data = pull_data()
@@ -28,7 +30,7 @@ def test_replace_oids_exists():
     assert any(data)
 
 
-# Test that pilots have been replaced with ObjectIDs.
+# Test that pilot URLs have been replaced with ObjectIDs.
 def test_replace_oids_success():
     data = replace_oids()
     for item in data:
@@ -40,6 +42,6 @@ def test_replace_oids_success():
 # ------------------ FUNCTION 4: INSERT DATA ------------------ #
 
 # Test that some starships data has been inserted into the starships collection.
-def test_insert_starships():
+def test_insert_starships_data():
     insert_starships()
     assert any(db.starships.find({}))

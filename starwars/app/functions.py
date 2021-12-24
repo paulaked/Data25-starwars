@@ -60,6 +60,7 @@ db.drop_collection("starships")
 db.create_collection("starships")
 
 #put starships data into starships collection: if a ship have no pilot, id field will be N/A, else list all pilot ids.
+#can also put starship data along with id data into json file, then load to mongodb (easy to match pilot id with starships, use for/while loop).
 def fill_starships():
     ship_data = get_starships()
     pilots_url = get_pilot_url()

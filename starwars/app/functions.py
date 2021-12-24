@@ -32,4 +32,18 @@ def get_pilot_url():
         pilots_url.append(dummyvar1["result"]["properties"]["pilots"])
     return pilots_url
 
+#get pilot name from urls, match names with id using data in charaters collection, store id in an array
+def get_pilot_id():
+    id_array = get_pilot_url()
+
+    for i in range(0, len(id_array) - 1):
+        for j in range(0, len(id_array[i])):
+            dummyvar = requests.get(id_array[i][j])
+            dummyvar1 = dummyvar.json()
+            pilot_name = dummyvar1["result"]['properties']['name']
+            pilot_id = db.charaters.find({"name": pilot_name}, {"_id": 1})
+            for k in pilot_id:
+                id_array[i][j] = str(k['_id'])
+    return id_array
+
 

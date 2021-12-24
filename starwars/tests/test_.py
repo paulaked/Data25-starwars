@@ -19,3 +19,10 @@ def test_get_pilot_url():
             for j in i:
                 assert validators.url(j) is True
 
+def test_get_pilot_id():
+    for i in get_pilot_id():
+        if not i:
+            continue
+        else:
+            for j in i:
+                assert int(j, 16) is True

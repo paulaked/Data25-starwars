@@ -11,6 +11,10 @@ def test_get_starship_data():
     for i in get_starship_data():
         assert type(i) is dict
 
+def test_get_starship():
+    for i in get_starships():
+        assert type(i) is dict
+
 def test_get_pilot_url():
     for i in get_pilot_url():
         if not i:
@@ -26,3 +30,5 @@ def test_get_pilot_id():
         else:
             for j in i:
                 assert int(j, 16) is True
+
+

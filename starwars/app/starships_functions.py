@@ -50,5 +50,12 @@ def get_pilots_in_list():
         new_starship_pilot_data.append(starship)
     return new_starship_pilot_data
 
-pprint.pprint(get_pilots_in_list())
+# pprint.pprint(get_pilots_in_list())
 
+def add_collection_to_database():
+    db.drop_collection('starships')
+    db.create_collection('starships')
+    starship_data_list = get_pilots_in_list()
+    for starship in starship_data_list:
+        db.starships.insert_one(starship)
+    return

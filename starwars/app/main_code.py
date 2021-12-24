@@ -65,12 +65,19 @@ sw_characters = db['character_info']
 #     with open(os.path.join('starships', i['name'] + '.json'), 'w') as f:
 #         f.write(json.dumps(i))
 
-for i in os.listdir('starships'):
-    with open(os.path.join('starships', i), 'r') as f:
-        # print(f.read())
-        up = sw_starships.insert_one(json.load(f))
+# Upload starship collection to mongoDB
+# for i in os.listdir('starships'):
+#     with open(os.path.join('starships', i), 'r') as f:
+#         # print(f.read())
+#         up = sw_starships.insert_one(json.load(f))
 
-
+for i in sw_starships.find():
+    pilots = []
+    for j in i['pilots']:
+        unique_character_id = sw_characters.find_one({'name': j})['_id']
+        match_id = {'_id': unique_character_id}
+        pilots.append(match_id)
+    sw_starships.update_one({'name': i['name']}, {'$set': {'pilots': pilots}})
 
 
 

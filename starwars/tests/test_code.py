@@ -18,4 +18,8 @@ def test_pilot_id():
         for j in i['pilots']:
             assert type(j) is dict
 
-
+# print(test_collect_results())
+# print(test_collect_urls())
+# print(test_change_pilot_urls_to_name())
+# print(test_upload_collection())
+# print(test_pilot_id())

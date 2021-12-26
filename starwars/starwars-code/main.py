@@ -39,33 +39,36 @@ def collecting_starships_and_pilots():
         pilot_urls.append(i.get('result').get('properties').get('pilots'))
     # pprint(pilot_urls)
     pilot_url2 = [x for x in pilot_urls if x]
-    # pprint(pilot_url2)
-    pilot_info = []
+    pprint(pilot_url2)
+    list_flat = [item for elem in pilot_url2 for item in elem]
+    print(list_flat)
+    # pilot_info = []
     pilot_names = []
-    for lists in pilot_url2:
-        for elements in lists:
-            pilot_info.append(requests.get(elements).json())
+    # for lists in pilot_url2:
+    #     for elements in lists:
+    #         pilot_info.append(requests.get(elements).json())
 
-    for i in pilot_info:
-        pilot_names.append(i.get('result').get('properties').get('name'))
-    # pprint(pilot_names)
 
-    db.create_collection("pilots")
-    for i in pilot_names:
-        db.pilots.insert_one({
-            "name": i,
-            "pilot_id": db.characters.find_one({"name": i}, {"_id": 1}) })
-
-    joined = db.pilots.aggregate([{
-        "$lookup": {
-            "from": "characters",
-            "localField": "name._id",
-            "foreignField": "_id",
-             "as": "matched_name"
-        }
-    }])
-    for x in db.pilots.find({}):
-        print(x)
+    # for i in pilot_info:
+    #     pilot_names.append(i.get('result').get('properties').get('name'))
+    # # pprint(pilot_names)
+    #
+    # db.create_collection("pilots")
+    # for i in pilot_names:
+    #     db.pilots.insert_one({
+    #         "name": i,
+    #         "pilot_id": db.characters.find_one({"name": i}, {"_id": 1}) })
+    #
+    # joined = db.pilots.aggregate([{
+    #     "$lookup": {
+    #         "from": "characters",
+    #         "localField": "name._id",
+    #         "foreignField": "_id",
+    #          "as": "matched_name"
+    #     }
+    # }])
+    # for x in db.pilots.find({}):
+    #     print(x)
 
 
 

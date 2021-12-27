@@ -10,7 +10,6 @@ def api_request(url):
     return json_data
 
 # Code to turn a page
-
 def api_request_advanced(url):
     list = []
     raw_data = requests.get(url)

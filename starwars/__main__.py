@@ -61,7 +61,6 @@ def all_code():
             pilot_names.append(pilot_name_ind)
         # pprint(pilot_names)
 
-
     def making_pilot_collection():
         collecting_starships_and_pilots()
         db.drop_collection("pilots")

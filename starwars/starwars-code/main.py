@@ -60,7 +60,7 @@ def all_code():
 
     def making_pilot_collection():
         collecting_starships_and_pilots()
-        db.drop_collection("pilots")
+        # db.drop_collection("pilots")
         db.create_collection("pilots")
 
         for i in pilot_names:
@@ -93,7 +93,7 @@ def all_code():
 
         def making_starships_collection():
 
-            db.drop_collection("starships")
+            # db.drop_collection("starships")
             db.create_collection("starships")
 
             for i, s in enumerate(starships_info):

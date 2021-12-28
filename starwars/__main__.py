@@ -33,7 +33,7 @@ matching_ids_info = []
 pilot_ids = []
 
 
-def all_code():
+def starships_function():
     def collecting_starships_and_pilots():
         for x in range(0, 4):
             for i in starshipsjsons[x]['results']:
@@ -115,4 +115,4 @@ def all_code():
     making_dictionary()
 
 
-all_code()
+starships_function()

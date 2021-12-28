@@ -27,6 +27,8 @@ pilot_names = []
 pilot_urls_ind = []
 matching_ids = []
 matching_ids_info = []
+pilot_ids = []
+
 
 def collecting_starships_and_pilots():
     for x in range(0, 4):
@@ -45,7 +47,6 @@ def collecting_starships_and_pilots():
     # pprint(pilot_urls)
     pilot_url_without_empties = [x for x in pilot_urls_with_empties if x]
     # pprint(pilot_url_without_empties)
-    # pilot_urls_ind = [item for elem in pilot_url_without_empties for item in elem]
     for i in pilot_url_without_empties:
         for x in i:
             pilot_urls_ind.append(x)
@@ -59,6 +60,7 @@ def collecting_starships_and_pilots():
 
 def making_pilot_collection():
     collecting_starships_and_pilots()
+    db.drop_collection("pilots")
     db.create_collection("pilots")
 
     for i in pilot_names:
@@ -66,9 +68,6 @@ def making_pilot_collection():
             "name": i,
             "pilot_id": db.characters.find_one({"name": i}, {"_id": 1}) })
 
-    # url_info = requests.get(url).json()
-    # pilot_id = url_info['result']['properties']['name']
-    # pilot_names.append(pilot_id)
 
     joined = db.pilots.aggregate([{
         "$lookup": {
@@ -83,6 +82,7 @@ def making_pilot_collection():
 
 
 def making_dictionary():
+
     making_pilot_collection()
 
     for i in pilot_names:
@@ -91,9 +91,26 @@ def making_dictionary():
     # pprint(matching_ids)
 
     matchingid_dict = dict(zip(pilot_urls_ind,matching_ids))
-    pprint(matchingid_dict)
+    # pprint(matchingid_dict)
+
+    def making_starships_collection():
+
+        db.drop_collection("starships")
+        db.create_collection("starships")
+
+        for i, s in enumerate(starships_info):
+            x = s['result']['properties']['pilots']
+            # print(f" this is x: {x}")
+            if x:
+                for j, p in enumerate(x):
+                    starships_info[i]['result']['properties']['pilots'][j] = matchingid_dict[p]
+                    pilot_ids.append(matchingid_dict[p])
+            # print(f" this is s: {s}")
+        for a in starships_info:
+            # print(a['result']['properties'])
+            db.starships.insert_one(a['result']['properties'])
+
+    making_starships_collection()
 
 
 making_dictionary()
-
-

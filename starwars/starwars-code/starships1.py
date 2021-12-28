@@ -18,19 +18,19 @@ def collecting_starships_and_pilots_function():
     starships_info = []
     for i in starships_url:
         starships_info.append(requests.get(i).json())
-    # pprint(starships_info)
+    pprint(starships_info)
 
-    pilot_urls = []
-    for i in starships_info:
-        pilot_urls.append(i.get('result').get('properties').get('pilots'))
-    pprint(pilot_urls)
-
-    print("----------------------------------------")
-
-    for i in pilot_urls:
-        if not i:
-            pilot_urls.remove(i)
-    pprint(pilot_urls)
+    # pilot_urls = []
+    # for i in starships_info:
+    #     pilot_urls.append(i.get('result').get('properties').get('pilots'))
+    # pprint(pilot_urls)
+    #
+    # print("----------------------------------------")
+    #
+    # for i in pilot_urls:
+    #     if not i:
+    #         pilot_urls.remove(i)
+    # pprint(pilot_urls)
 
     # pilot_info = []
     # for lists in pilot_urls:

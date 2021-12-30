@@ -9,10 +9,11 @@ db = client["starwars"]
 
 
 def drop_starships():
-    # If entries in the database exist, then drop them.
+    # If entries in the database exist, then drop them just to be sure.
     if db.starships.find({}) != "":
         db.starships.delete_many({})
-    # Otherwise, proceed as normal.
+    # Now drop the entire collection.
+    db.starships.drop()
 
 
 def pull_data():
@@ -48,16 +49,18 @@ def replace_oids():
 
 def insert_starships():
     # Insert starships into the database.
-    if pd.isnull(db.starships.find({})):
-        db.create_collection("starships")
+    drop_starships()
+    db.create_collection("starships")
+    for item in replace_oids():
+        db.starships.insert_one(item)
 
 
 # --------------- EXTRA TESTS --------------- #
 print("# ------------------ FUNCTION 1: DROP STARSHIPS ------------------ #")
-drop_starships()
-data1 = db.starships.find({})
-for i in data1:
-    print(i)
+# drop_starships()
+# data1 = db.starships.find({})
+# for i in data1:
+#     print(i)
 
 print("# ------------------ FUNCTION 2: PULL DATA ------------------ #")
 # data2 = pull_data()
@@ -65,12 +68,13 @@ print("# ------------------ FUNCTION 2: PULL DATA ------------------ #")
 #     print(i)
 
 print("# ------------------ FUNCTION 3: REPLACE OBJECT IDS ------------------ #")
-data3 = replace_oids()
-for i in data3:
-    print(i)
+# data3 = replace_oids()
+# for i in data3:
+#     print(i)
 
 print("# ------------------ FUNCTION 4: INSERT DATA ------------------ #")
 insert_starships()
 data4 = db.starships.find({})
+print("*-*-*-*-*-*-*-*- *-*-* PRINTING RESULT *-*-*-*-*-*-*-*-*-*-*")
 for i in data4:
     print(i)

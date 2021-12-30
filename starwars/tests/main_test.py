@@ -15,7 +15,7 @@ def test_drop_starships():
 
 # ------------------ FUNCTION 2: PULL DATA ------------------ #
 
-#PASSED
+# PASSED
 # Test that at least some data has been pulled from the API.
 def test_pull_data():
     data = pull_data()
@@ -23,7 +23,7 @@ def test_pull_data():
 
 
 # ------------------ FUNCTION 3: REPLACE OBJECT IDS ------------------ #
-
+# PASSED
 # Test that function returns at least some data.
 def test_replace_oids_exists():
     data = replace_oids()

@@ -1,5 +1,3 @@
-import pytest
-import pandas as pd
 from starwars.app.AppMain import *
 
 

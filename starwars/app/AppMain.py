@@ -1,8 +1,5 @@
 import pymongo
-import pandas as pd
 import requests
-import json
-from pprint import pprint
 
 client = pymongo.MongoClient()
 db = client["starwars"]

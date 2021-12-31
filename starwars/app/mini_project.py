@@ -37,7 +37,7 @@ def get_url_for_all_pages():
 # the pilot values with the matching ids:
 def get_and_replace_pilots_id():
     starships = []
-    for i in get_url_for_all_pages()[:6]:
+    for i in get_url_for_all_pages():
         url_content = requests.get(i)
         url_content = url_content.json()
         result = url_content['result']
@@ -58,10 +58,13 @@ def get_and_replace_pilots_id():
 
     return starships
 
+
+
+
 # 7. Creating the starship collecton on Mongodb:
 db.create_collection("Starship")
 
-# 8. Different starships are added to the Starship collection:
+# # 8. Different starships are added to the Starship collection:
 for i in get_and_replace_pilots_id():
     db.Starship.insert_one(i)
 

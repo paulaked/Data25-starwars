@@ -12,7 +12,7 @@ db = client['starwars']
 web_address = 'https://www.swapi.tech/api/starships'
 
 
-# 3. The following function extract the data from the correspondent API address:
+# 3. The following function extract the data from the corresponding API address:
 def extract_data(url):
     starship_url = requests.get(url)
     starship_url = starship_url.json()

@@ -1,7 +1,6 @@
 from functions import *
 if __name__ == '__main__':
-    store_data()
-    load_data()
+    load_data_directly()
     references_pilot()
     pass
 

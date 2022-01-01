@@ -16,8 +16,3 @@ Use these to replace 'pilots' with a list of ObjectIDs from our characters colle
 - Create a job board in Trello or similar to keep track of user stories.  This job board can be found at https://djew.atlassian.net/jira/core/projects/SWPD/board
 - Your code should utilise functional programming OR object-oriented programming
 - Use Test Driven Development: write tests first
-
-## Extra Goals
-
--Create a new collection containing the data for all vehicles and reference pilots and films by their ObjectIDs
--Create a new collection containing information about the films

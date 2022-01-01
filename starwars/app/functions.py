@@ -62,7 +62,6 @@ def load_data():
 
 def load_data_directly():
     db['starships'].drop()
-    starships = db['starships']
     for starship in collect_pilots():
         db.starships.insert_one(starship)
 

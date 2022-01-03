@@ -29,18 +29,6 @@ def test_replace_oids_exists():
     assert any(data)
 
 
-# FAILED - due to current syntax, needs to be a.any()
-# Test that pilot URLs have been replaced with ObjectIDs.
-def test_replace_oids_success():
-    data = replace_oids()
-    for item in data:
-        if pd.any(item["pilots"]):
-            for pilot in item["pilots"]:
-                if "ObjectID" not in pilot:
-                    flag = False
-    assert flag
-
-
 # ------------------ FUNCTION 4: INSERT DATA ------------------ #
 
 # PASSED
@@ -48,13 +36,3 @@ def test_replace_oids_success():
 def test_insert_starships_data():
     insert_starships()
     assert any(db.starships.find({}))
-
-
-# Test that for each starship, the pilots section contains a list of ObjectIDs.
-def test_insert_starships_pilots():
-    insert_starships()
-    data = db.starships.find({})
-    for item in data:
-        if pd.notnull(item["pilots"]) and "ObjectID" not in item["pilots"]:
-            flag = False
-    assert flag

@@ -54,25 +54,10 @@ def insert_starships():
 
 
 # --------------- EXTRA TESTS --------------- #
-print("# ------------------ FUNCTION 1: DROP STARSHIPS ------------------ #")
-# drop_starships()
-# data1 = db.starships.find({})
-# for i in data1:
-#     print(i)
 
-print("# ------------------ FUNCTION 2: PULL DATA ------------------ #")
-# data2 = pull_data()
-# for i in data2:
-#     print(i)
-
-print("# ------------------ FUNCTION 3: REPLACE OBJECT IDS ------------------ #")
-# data3 = replace_oids()
-# for i in data3:
-#     print(i)
-
-print("# ------------------ FUNCTION 4: INSERT DATA ------------------ #")
+print("#*-*-*-*-*-*-*-*-*-*-* STARTING PROGRAM *-*-*-*-*-*-*-*-*-*-*")
 insert_starships()
 data4 = db.starships.find({})
-print("*-*-*-*-*-*-*-*- *-*-* PRINTING RESULT *-*-*-*-*-*-*-*-*-*-*")
+print("*-*-*-*-*-*-*-*-*-*-* PRINTING RESULT *-*-*-*-*-*-*-*-*-*-*")
 for i in data4:
     print(i)

@@ -54,13 +54,3 @@ def insert_starships():
         if not item["pilots"]:
             del item["pilots"]
         db.starships.insert_one(item)
-
-
-# --------------- EXTRA TESTS --------------- #
-
-print("#*-*-*-*-*-*-*-*-*-*-* STARTING PROGRAM *-*-*-*-*-*-*-*-*-*-*")
-insert_starships()
-data4 = db.starships.find({})
-print("*-*-*-*-*-*-*-*-*-*-* PRINTING RESULT *-*-*-*-*-*-*-*-*-*-*")
-for i in data4:
-    print(i)

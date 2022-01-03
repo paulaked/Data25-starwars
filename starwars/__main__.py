@@ -1,3 +1,6 @@
+from app.AppMain import *
 
 if __name__ == '__main__':
-    pass  # Replace this with code to run your app
+    # Code to run the app.
+    # Calling this function runs all four functions.
+    insert_starships()

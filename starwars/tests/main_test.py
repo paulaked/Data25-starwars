@@ -1,3 +1,4 @@
+import pandas as pd
 from starwars.app.AppMain import *
 
 
@@ -28,17 +29,21 @@ def test_replace_oids_exists():
     assert any(data)
 
 
+# FAILED - due to current syntax, needs to be a.any()
 # Test that pilot URLs have been replaced with ObjectIDs.
 def test_replace_oids_success():
     data = replace_oids()
     for item in data:
-        if pd.notnull(item["pilots"]) and "ObjectID" not in item["pilots"]:
-            flag = False
+        if pd.any(item["pilots"]):
+            for pilot in item["pilots"]:
+                if "ObjectID" not in pilot:
+                    flag = False
     assert flag
 
 
 # ------------------ FUNCTION 4: INSERT DATA ------------------ #
 
+# PASSED
 # Test that some starships data has been inserted into the starships collection.
 def test_insert_starships_data():
     insert_starships()

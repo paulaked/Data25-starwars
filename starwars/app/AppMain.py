@@ -36,7 +36,7 @@ def replace_oids():
     for starship in starship_details:
         pilot_list = []
         for pilot in starship["pilots"]:
-            # Find the pilot's name and search db to find their ObjectID.
+            # Find the pilot's name and search characters db to find their ObjectID.
             name = requests.get(pilot).json()["result"]["properties"]["name"]
             pilot_id = db.characters.find_one({"name": name}, {"_id": 1})
             pilot_list.append(pilot_id)

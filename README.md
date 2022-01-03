@@ -1,32 +1,30 @@
-# Data 25 Star Wars Project
+# Data 25 Star Wars Project ====> Ella's Branch
 
-## Link to Trello board
+## Trello board
 
 https://trello.com/invite/b/aXvLSF0v/964f40fe0f13ee1f76ea3cf1047b05ac/data25-starwars
 
-## Instructions
+## Instructions for use
 
-The character data in your MongoDB database has been pulled from https://swapi.tech/.
-As well as 'people', the API has data on starships.
-Using Python, write code to pull data on all available starships from the API.
-The "pilots" key contains URLs pointing to the characters who pilot the starship.
-Use these to replace 'pilots' with a list of ObjectIDs from our characters collection, then insert the starships into their own collection in MongoDB.
-(Make sure you drop any existing starships collections.)
+- All functions are contained within the AppMain file in the app folder.
+- Functions may be run individually (but call upon previous functions to work)
+- To run all functions in one go, simply run Function 4: insert_starships()
 
-You have until after Christmas.
+## Functions breakdown
+### Function 1: drop_starships()
+Checks for any entries in an existing starships database.
+<br/> Deletes these, then drops the entire database.
 
-## Requirements
+### Function 2: pull_data()
+Sends request to the SWAPI for the starships data.
+<br/> Adds each page of results in JSON format to a list.
 
-- Use good coding principles.  That means testing, appropriate comments, good naming conventions and handling errors gracefully.
-- Follow PEP 8
-- Create a job board in Trello or similar to keep track of your user stories.  Provide a link to that job board in your version of this README.
-- Your code should utilise functional programming OR object-oriented programming
-- Use Test Driven Development: write your tests first
+### Function 3: replace_oids()
+Extract the URLs obtained from pull_data() which link to pilot details.
+<br/> For each pilot, search the characters database using their name to find their ObjectID.
+<br/> Append their ObjectID to the list of pilots for that starship.
 
-## Using this repo
-
-- Branch off from main.
-- Use your own name for the name of the branch (e.g. mine would be PaulaKedra - please copy this format).
-- Make sure you commit and push to the remote repo frequently to keep your work up-to-date.
-- The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
-- Replace this README with an appropriate README for your project (including a link to your job board).
+### Function 4: insert_starships()
+Calls drop_starships() to eliminate any existing starships data.
+<br/> Creates new starships collection.
+<br/> Inserts each starship from replace_oids() into the collection.

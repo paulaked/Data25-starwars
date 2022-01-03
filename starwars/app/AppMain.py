@@ -50,6 +50,9 @@ def insert_starships():
     drop_starships()
     db.create_collection("starships")
     for item in replace_oids():
+        # Clause to avoid inserting any pilots section for empty entries.
+        if not item["pilots"]:
+            del item["pilots"]
         db.starships.insert_one(item)
 
 

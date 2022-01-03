@@ -9,7 +9,7 @@ from starwars.app.AppMain import *
 def test_drop_starships():
     drop_starships()
     data = db.starships.find({})
-    assert pd.notnull(data)
+    assert pd.isnull(data)
 
 
 # ------------------ FUNCTION 2: PULL DATA ------------------ #
